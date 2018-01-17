@@ -1,73 +1,57 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sign Up Form</title>
-        <link rel="stylesheet" href="css/normalize.css">
-        <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="css/main.css">
-    </head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Jane Smith's Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Muli%7CRoboto:400,300,500,700,900" rel="stylesheet"></head>
+  <body>
 
-    <body>
-        <form action="index.html" method="post">
+    <div class="main-nav">
+        <ul class="nav">
+          <li class="name">Jane Smith</li>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Experience</a></li>
+          <li><a href="#">Photos</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
 
-            <h1>Sign up</h1>
+    <header>
+      <img src="images/me.png" alt="Drawing of Jane Smith" class="profile-image">
+      <h1 class="tag name">Hello, I’m Jane.</h1>
+      <p class="tag location">My home is Portland, Oregon.</p>
+    </header>
 
-            <fieldset>
+    <main class="flex">
+      <div class="card">
+        <h2>Background</h2>
+        <p>I’m an aspiring web designer who loves everything about the web. I've lived in lots of different places and have worked in lots of different jobs. I’m excited to bring my life experience to the process of building fantastic looking websites.</p>
+        <p>I’ve been a professional cook and gardener and am a life-long learner who's always interested in expanding my skills.</p>
+      </div> 
 
-                <legend><span class="number">1</span> Your basic info.</legend>
-            
-                <Lable for="name">Name:</Lable>
-                
-                <input type="text" id="name" name="user_name">
-                
-                <Lable for="mail">Email:</Lable>
-                
-                <input type="email" id="mail" name="user_email">
-                
-                <Lable for="password">Password:</Lable>
-               
-                <input type="password" id="password" name="user_password">
+      <div class="card">
+        <h2>Goals</h2>
+        <p>I want to master the process of building web sites and increase my knowledge, skills and abilities in:</p>
+        <ul class="skills">
+          <li>HTML</li>
+          <li>CSS</li>
+          <li>JavaScript</li>
+          <li>Ruby</li>
+          <li>Rails</li>
+        </ul>
+        <p>I’d like to work for a web design firm helping clients create an impressive online presence.</p>
+      </div> 
 
-                <label>Age:</label>
-                <input type="radio" id="under_13" value="under_13" name="user_age">
-                <label for="under_13" class="light">Under 13</label><br>
-                <input type="radio" id="over_13" value="over_13" name="user_age">
-                <label for="over_13" class="light">13 or over</label>
-
-        </fieldset>
-
-        <fieldset>
-
-            <legend><span class="number">2</span> Your profile. </legend>
-
-            <Lable for="bio">Biography:</Lable>
-            
-            <textarea id="bio" name="user_bio"></textarea>
-
-            <label for="job"> Job role:</label>
-            <select id="job" name="user_job">
-                <optgroup label="Jobs">
-                <option value="frontend_developer">Frontend developer</option>
-                <option value="php_developer">PHP developer</option>
-                <option value="java_developer">Java developer</option>
-            </optgroup>
-            </select>
-
-            <label>Interests:</label>
-            <input type="checkbox" id="developement" value="interest_development" name="user_interest"><label class="light" for="development">Development</label><br>
-            
-            <input type="checkbox" id="design" value="interest_design" name="user_interest"><label class="light" for="design">Design</label><br>
-            
-            <input type="checkbox" id="buisness" value="interest_buisness" name="user_interest"><label class="light" for="buisness">Buisness</label><br>
-
-        </fieldset>
-
-            <button type="submit">Sign Up</button>
-
-        </form>
-      
-      
-    </body>
-</html>
+    </main>
+    <footer>
+      <ul>
+        <li><a href="#" class="social twitter">Twitter</a></li>
+        <li><a href="#" class="social linkedin">LinkedIn</a></li>
+        <li><a href="#" class="social github">Github</a></li>
+      </ul>
+      <p class="copyright">Copyright 2015, Jane Smith</p>
+    </footer>
+  </body>
+  </html>
