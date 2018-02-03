@@ -1,0 +1,124 @@
+body {
+ min-width: 200px;
+ max-width: 700px;
+}
+
+header {
+  overflow: hidden;
+  padding-top: 5px;
+  text-align: center;
+}
+
+img {
+	max-width: 100%;
+}
+
+.topcontainer {
+	border-size: 2px;
+	border-style: solid;
+	border-color: black;
+	float: right;
+	max-width: 20%;
+}
+
+.play {
+	border-size: 2px;
+	border-style: solid;
+	border-color: black;
+	text-align: center;
+	width: 100%;
+	max-width: 600px;
+	float: left;
+}
+
+#backup {
+	width: 100%;
+	max-width: 600px;
+	border-size: 0px;
+}
+
+.hide {
+	visibility: hidden;
+}
+
+#shop {
+	border-size: 2px;
+	border-style: solid;
+	border-color: black;
+	text-align: center;
+	width: 75%;
+	float: left;
+}
+
+button {
+	border-size: 2px;
+	border-style: solid;
+	border-color: black;
+	cursor: pointer;
+	margin: 5px;
+}
+
+div > form {
+	font-weight: bold;
+}
+
+input {
+	border-size: 1px;
+	border-style: solid;
+	border-color: black;
+	margin: 2px;
+}
+
+.info {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.infotext {
+	visibility: hidden;
+	position: absolute;
+	z-index: 1;
+}
+
+.info:hover .infotext {
+	visibility: visible;
+	top: -5px;
+	left: 105%;
+}
+
+@media only screen and (min-width: 815px) {
+	body {
+		margin: 0 auto;
+		max-width: 768px;
+	}
+
+	.info:hover .infotext {
+	left: 110%;
+}
+}
+
+@media only screen and (max-width: 815px) {
+	body {
+		margin: 0 auto;
+		max-width: 768px;
+	}
+
+	.play {
+		width: 75%;
+	}
+
+.topcontainer {
+	float: left;
+	min-width: 125px;
+}
+
+}
+
+@media only screen and (max-width: 500px) {
+	button {
+	border-size: 5px;
+	margin: 10px;
+	padding: 10px;
+}
+}
