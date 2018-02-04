@@ -1,8 +1,4 @@
-function glow(){
-	while (document.getElementById("glowy").style.opacity < "0.3") {
-		document.getElementById("glowy").style.opacity = document.getElementById("glowy").style.opacity + .01;
-	}
-	while (document.getElementById("glowy").style.opacity > "0.0") {
-		document.getElementById("glowy").style.opacity = document.getElementById("glowy").style.opacity - .01;
-	}
-}
+var glow = $('.confirm_selection');
+setInterval(function(){
+    glow.toggleClass('glow');
+}, 1000);

@@ -52,7 +52,7 @@ var dragon = {
 }
 
 var quests = {
-    princess: 0,
+    princess: 1,
 }
 
 //Character generation and display function.
@@ -93,7 +93,8 @@ function storeTest() {
         document.getElementById("inventory").innerHTML=inventory;
         document.getElementById("stats").classList.remove('hide');
         document.getElementById("inventoryarea").classList.remove('hide');
-        quests.princess = 1;
+        document.getElementById("secondary-content").classList.remove('hide');
+        //$('.playarea').load("locations.html #castle1");
         throneRoom();
         ;
     }
@@ -410,6 +411,7 @@ function loadData() {
         document.getElementById("inventory").innerHTML=inventory;
         document.getElementById("stats").classList.remove('hide');
         document.getElementById("inventoryarea").classList.remove('hide');
+        document.getElementById("secondary-content").classList.remove('hide');
         throneRoom();
         ;
     }
