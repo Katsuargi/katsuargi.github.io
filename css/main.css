@@ -36,6 +36,7 @@ img {
 	text-align: center;
 	float: left;
 	min-width: 300px;
+	max-width: 650px;
 }
 
 #navigationButtons {
@@ -99,6 +100,10 @@ input {
 	body {
 		margin: 0 auto;
 		width: 986px;
+	}
+
+	.play {
+		min-width: 650px;
 	}
 }
 
