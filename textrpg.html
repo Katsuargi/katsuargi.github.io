@@ -15,60 +15,7 @@
 	
 
 	<main class="mcontainer">
-		<div id="secondary-content">
-			<p>This is a bunch of secondary content.</p>
-		</div>
-
-
-		<section id="playarea">
-
-			<div id="mainArea" class="play info">
-				<h2>You have 15 points to distribute.</h2>
-			    <form>
-			    	Name:<br>
-			    	<input type=text id="playerin" name="player"><br>
-			    	Strength: 1-10<br>
-			    	<input type=number id="str" name="Str"><br>
-			    	<p class="infotext">Strength increases damage.</br> 
-			    	Dexterity increases hid and dodge.</br>
-			    	Stamina increases HP.</p>
-			    	Dexterity: 1-10<br>
-			    	<input type=number id="dex" name="Dex"><br>
-			    	Stamina: 1-10<br>
-			    	<input type=number id="sta" name="Sta"><br>
-			    </form>
-			    <button id="test" onclick="storeTest()">Enter stats</button>
-			    <button onclick="loadData()">Load Game.</button>
-			</div>
-
-	</section>
-		
-		<section class="topcontainer">
-			<div id="stats" class="hide">
-				<h2><span id="playern">Name</span></h2><br>
-				<h4>Stats:</h4>
-				<h3>Health: <span id="healthdisplay"></span><br>
-				<hr>
-
-				Strength: <span id="strdisplay"></span><button onclick="addStr()">+</button><br>
-				Dexterity: <span id="dexdisplay"></span><button onclick="addDex()">+</button><br>
-				Stamina: <span id="stadisplay"></span><button onclick="addSta()">+</button><br>
-				</br>
-				<hr>
-				Money: <span id="moneydisplay"></span></br>
-				EXP: <span id="expdisplay"></span></br></h3>
-				<hr>
-			</div>
-			
-			<div id="inventoryarea" class="hide">
-				<h2>Inventory:</h2>
-				<h3><span id="inventory"></span></h3>
-			</div>
-
-
-		</section>
-
-		<div id="shop" class="hide">
+				<div id="shop" class="hide">
 			<h1>Store</h1><br>
 			Inventory goes here.<br>
 			Sword: +3 damage. 50 gold. <button id="swordB" onclick="addSword()">Add to cart.</button> <button id="swordR" onclick="removeSword()">Remove from cart.</button><br><br>
@@ -81,6 +28,61 @@
 			<button id="buy" onclick="buy()">Make purchase.</button><br>
 			<button id="shopend" onclick="shopEnd()">Exit</button>
 
+		</div>
+
+		<div id="pcontainer">
+
+			<section class="topcontainer">
+				<div id="stats" class="hide">
+					<h2><span id="playern">Name</span></h2><br>
+					<h4>Stats:</h4>
+					<h3>Health: <span id="healthdisplay"></span><br>
+					<hr>
+
+					Strength: <span id="strdisplay"></span><button onclick="addStr()">+</button><br>
+					Dexterity: <span id="dexdisplay"></span><button onclick="addDex()">+</button><br>
+					Stamina: <span id="stadisplay"></span><button onclick="addSta()">+</button><br>
+					</br>
+					<hr>
+					Money: <span id="moneydisplay"></span></br>
+					EXP: <span id="expdisplay"></span></br></h3>
+					<hr>
+				</div>
+				
+				<div id="inventoryarea" class="hide">
+					<h2>Inventory:</h2>
+					<h3><span id="inventory"></span></h3>
+				</div>
+
+
+			</section>
+
+			<div id="playarea">
+
+				<div id="mainArea" class="play info">
+					<h2>You have 15 points to distribute.</h2>
+				    <form>
+				    	Name:<br>
+				    	<input type=text id="playerin" name="player"><br>
+				    	Strength: 1-10<br>
+				    	<input type=number id="str" name="Str"><br>
+				    	<p class="infotext">Strength increases damage.</br> 
+				    	Dexterity increases hid and dodge.</br>
+				    	Stamina increases HP.</p>
+				    	Dexterity: 1-10<br>
+				    	<input type=number id="dex" name="Dex"><br>
+				    	Stamina: 1-10<br>
+				    	<input type=number id="sta" name="Sta"><br>
+				    </form>
+				    <button id="test" onclick="storeTest()">Enter stats</button>
+				    <button onclick="loadData()">Load Game.</button>
+				</div>
+
+			</div>
+
+			<div id="secondary-content">
+				<p>This is a bunch of secondary content. It contains a bunch of content in order to control how for it spreads. And it keeps going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going and going</p>
+			</div>
 		</div>
 
 			<!--Navigation locations to be called as player moves. -->
@@ -107,6 +109,7 @@
 				<p id="kingQuestText">You have accepted the king's quest. He waits wait baited breath for you to hurry up and get on with it.
 				</p>
 				<div id="navigationButtons">
+					<hr>
 					<button id="forest1" onclick="forestEntrance()">North</button>
 					<button id="shopbut" onclick="shopTest()">Shop</button>
 					<button onclick="saveData()">Save Game.</button>
@@ -117,6 +120,7 @@
 				<h2>The king wants you to save the princess from the dragon.</h2>
 				<p>Good luck!</p>
 				<div id="navigationButtons">
+					<hr>
 					<button id="goBack" onclick="throneRoom()">Go Back.</button>
 				</div>
 			</div>
@@ -125,6 +129,7 @@
 				<h2>The Forest Entrance</h2>
 				<p>You have moved to the entrance of the forest.</p>
 				<div id="navigationButtons">
+					<hr>
 					<button id="throneRoom" onclick="throneRoom()">South</button>
 					<button onclick="forest2()">North</button>
 				</div>
@@ -134,6 +139,7 @@
 				<h2>In the forest.</h2>
 				<p>You have wandered deeper into the forest.</p>
 				<div id="navigationButtons">
+					<hr>
 					<button onclick="dragonCave()">Dragon Cave</button>
 					<button id="forest1" onclick="forestEntrance()">South</button>
 				</div>
@@ -143,6 +149,7 @@
 				<h2>Goblin Fight</h2>
 				<p>A goblin wants to pick a fight.</p>
 				<div id="navigationButtons">
+					<hr>
 					<button id="fight" onclick="fight()">Fight</button>
 					<button id="throneRoom" onclick="goBack()">Run</button>
 				</div>
@@ -152,6 +159,7 @@
 				<h2>Wolf Fight</h2>
 				<p>A wolf tries to bite your leg.</p>
 				<div id="navigationButtons">
+					<hr>
 					<button id="fight" onclick="fight()">Fight</button>
 					<button onclick="goBack()">Run</button>
 				</div>
@@ -161,6 +169,7 @@
 				<h2> It's the Dragon's cave!</h2>
 				<span id="princessText">The princess is here.</span>
 					<div id="navigationButtons">
+						<hr>
 					<button id="princessSave" onclick="savePrincess()">Save the princess!</button>
 					<button onclick="forest2()">South</button>
 				    </div>
@@ -170,6 +179,7 @@
 				<h2>Dragon Fight.</h2>
 				<p>Boy is the dragon angry that you showed up.</p>
 				<div id="navigationButtons">
+					<hr>
 					<button onclick="fight()">Fight</button>
 				</div>
 			</div>
@@ -185,6 +195,7 @@
 				<h2>You won the fight.</h2>
 				<p>Good job!</p>
 				<div id="navigationButtons">
+					<hr>
 					<button id="goBack" onclick="goBack()">Go Back.</button>
 				</div>
 			</div>

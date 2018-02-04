@@ -1,6 +1,4 @@
 body {
- min-width: 200px;
- max-width: 1604px;
  background: #272822;
  color: #a6e22e;
 }
@@ -20,26 +18,24 @@ img {
 	border-style: solid;
 	border-color: black;
 	float: left;
-	max-width: 15%;
-	height: 1000px;
+	max-width: 150px;
 }
 
 .topcontainer {
 	border-size: 2px;
 	border-style: solid;
 	border-color: black;
-	float: right;
+	float: left;
 	max-width: 20%;
-	height: 1000px;
+	max-width: 150px;
 }
 .play {
 	border-size: 2px;
 	border-style: solid;
 	border-color: black;
 	text-align: center;
-	width: 70%;
-	height: 800px;
 	float: left;
+	min-width: 300px;
 }
 
 #navigationButtons {
@@ -47,13 +43,13 @@ img {
 }
 
 #backup {
-	width: 100%;
-	max-width: 600px;
-	border-size: 0px;
 }
 
 .hide {
 	visibility: hidden;
+	max-height: 1px;
+	max-width: 1px;
+	font-size: 1px;
 }
 
 #shop {
@@ -61,8 +57,6 @@ img {
 	border-style: solid;
 	border-color: black;
 	text-align: center;
-	width: 75%;
-	float: left;
 }
 
 button {
@@ -101,79 +95,27 @@ input {
 	left: 105%;
 }
 
-@media only screen and (min-width: 1604px) {
+@media only screen and (min-width: 986px) {
 	body {
 		margin: 0 auto;
+		width: 986px;
 	}
+}
 
-	.play {
-		width: 68%;
-	}
-
-	.topcontainer {
-		max-width: 235px;
-	}
-
+@media only screen and (max-width: 985px) {
 	#secondary-content {
-		border-size: 2px;
-		border-style: solid;
-		float: left;
-		max-width: 237px;
+		clear: left;
 	}
-
-
-}
-
-@media only screen and (max-width: 1603px) {
 	.play {
-		width: 62%;
+		max-width: 70%;
 	}
+
 }
 
-@media only screen and (max-width: 815px) {
-	body {
-		margin: 0 auto;
-		max-width: 768px;
-	}
-
+@media only screen and (max-width: 555px) {
 	.play {
-		width: 70%;
+		max-width: 100%;
+		float: none;
 	}
 
-.topcontainer {
-	float: left;
-	min-width: 125px;
-}
-
-}
-
-@media only screen and (max-width: 815px) {
-#secondary-content {
-	max-width: 20%;
-	height: 400px;
-}
-
-.topcontainer {
-	max-width: 20%;
-	height: 800px;
-}
-.play {
-	height: 400px;
-}
-}
-
-@media only screen and (max-width: 1043px) {
-	.info:hover .infotext {
-		visibility: visible;
-		top: -5px;
-		left: 120%;
-	}
-}
-
-@media only screen and (max-width: 500px) {
-	button {
-	border-size: 5px;
-	margin: 10px;
-	padding: 10px;
-}
 }
