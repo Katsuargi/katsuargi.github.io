@@ -94,8 +94,8 @@ function storeTest() {
         document.getElementById("stats").classList.remove('hide');
         document.getElementById("inventoryarea").classList.remove('hide');
         document.getElementById("secondary-content").classList.remove('hide');
-        //$('.playarea').load("locations.html #castle1");
         throneRoom();
+        $('#secondary-content').load("locations.html #castle1");
         ;
     }
 
