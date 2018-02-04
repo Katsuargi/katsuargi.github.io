@@ -1,6 +1,8 @@
 body {
  min-width: 200px;
- max-width: 700px;
+ max-width: 1604px;
+ background: #272822;
+ color: #a6e22e;
 }
 
 header {
@@ -13,21 +15,35 @@ img {
 	max-width: 100%;
 }
 
+#secondary-content {
+	border-size: 2px;
+	border-style: solid;
+	border-color: black;
+	float: left;
+	max-width: 15%;
+	height: 1000px;
+}
+
 .topcontainer {
 	border-size: 2px;
 	border-style: solid;
+	border-color: black;
 	float: right;
 	max-width: 20%;
+	height: 1000px;
 }
-
 .play {
 	border-size: 2px;
 	border-style: solid;
 	border-color: black;
 	text-align: center;
-	width: 100%;
-	max-width: 600px;
+	width: 70%;
+	height: 800px;
 	float: left;
+}
+
+#navigationButtons {
+	position: bottom;
 }
 
 #backup {
@@ -71,7 +87,6 @@ input {
 .info {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
 }
 
 .infotext {
@@ -86,15 +101,36 @@ input {
 	left: 105%;
 }
 
-@media only screen and (min-width: 815px) {
+@media only screen and (min-width: 1604px) {
 	body {
 		margin: 0 auto;
-		max-width: 768px;
+	}
+
+	.play {
+		width: 68%;
 	}
 
 	.info:hover .infotext {
-	left: 110%;
+		left: 110%;
+	}
+	.topcontainer {
+		max-width: 235px;
+	}
+
+	#secondary-content {
+		border-size: 2px;
+		border-style: solid;
+		float: left;
+		max-width: 237px;
+	}
+
+
 }
+
+@media only screen and (max-width: 1603px) {
+	.play {
+		width: 62%;
+	}
 }
 
 @media only screen and (max-width: 815px) {
@@ -104,7 +140,7 @@ input {
 	}
 
 	.play {
-		width: 75%;
+		width: 70%;
 	}
 
 .topcontainer {
@@ -112,6 +148,21 @@ input {
 	min-width: 125px;
 }
 
+}
+
+@media only screen and (max-width: 815px) {
+#secondary-content {
+	max-width: 20%;
+	height: 400px;
+}
+
+.topcontainer {
+	max-width: 20%;
+	height: 800px;
+}
+.play {
+	height: 400px;
+}
 }
 
 @media only screen and (max-width: 500px) {

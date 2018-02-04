@@ -8,14 +8,18 @@
 <body>
 
 	<header>
-		<img src="img/headerpicture.png" alt="headerpicture">
-		<h1 class="page name">Old School Text RPG</h1>
+	<!--	<img src="img/headerpicture.png" alt="headerpicture">
+		<h1 class="page name">Old School Text RPG</h1> -->
 	</header>
 
 	
 
 	<main class="mcontainer">
-		
+		<div id="secondary-content">
+			<p>This is a bunch of secondary content.</p>
+		</div>
+
+
 		<section id="playarea">
 
 			<div id="mainArea" class="play info">
@@ -42,15 +46,18 @@
 		<section class="topcontainer">
 			<div id="stats" class="hide">
 				<h2><span id="playern">Name</span></h2><br>
-				<h2>Stats:</h2>
+				<h4>Stats:</h4>
 				<h3>Health: <span id="healthdisplay"></span><br>
+				<hr>
 
 				Strength: <span id="strdisplay"></span><button onclick="addStr()">+</button><br>
 				Dexterity: <span id="dexdisplay"></span><button onclick="addDex()">+</button><br>
 				Stamina: <span id="stadisplay"></span><button onclick="addSta()">+</button><br>
-				-</br>
+				</br>
+				<hr>
 				Money: <span id="moneydisplay"></span></br>
 				EXP: <span id="expdisplay"></span></br></h3>
+				<hr>
 			</div>
 			
 			<div id="inventoryarea" class="hide">
@@ -87,6 +94,7 @@
 					The king has a quest for you.
 				</p>
 				<div id="navigationButtons">
+					<hr>
 					<button id="forest1" onclick="forestEntrance()">North</button>
 					<button id="shopbut" onclick="shopTest()">Shop</button>
 					<button onclick="princessQuest()">Accept quest.</button>
