@@ -437,7 +437,7 @@ function loadData() {
 
 function north() {
     var xCord = xCord + 1;
-    var xString = num.toString(xCord);
+    var xString = xCord.toString();
     var areaToCord = xString.concat(yCord);
     $("#secondary-content").load(locations.areaToCord);
 
