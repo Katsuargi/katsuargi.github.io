@@ -13,3 +13,33 @@
 					<button onclick="saveData()">Save Game.</button>
 				</div>
 			</div>
+
+			<div id="forestEntrance" class="play">
+				<h2>The Forest Entrance</h2>
+				<p>You have moved to the entrance of the forest.</p>
+				<div id="navigationButtons">
+					<hr>
+					<button id="throneRoom" onclick="throneRoom()">South</button>
+					<button onclick="forest2()">North</button>
+				</div>
+			</div>
+
+			<div id="forest2" class="play">
+				<h2>In the forest.</h2>
+				<p>You have wandered deeper into the forest.</p>
+				<div id="navigationButtons">
+					<hr>
+					<button onclick="dragonCave()">Dragon Cave</button>
+					<button id="forest1" onclick="forestEntrance()">South</button>
+				</div>
+			</div>
+
+			<div id="dragonCave" class="play">
+				<h2> It's the Dragon's cave!</h2>
+				<span id="princessText">The princess is here.</span>
+					<div id="navigationButtons">
+						<hr>
+					<button id="princessSave" onclick="savePrincess()">Save the princess!</button>
+					<button onclick="forest2()">South</button>
+				    </div>
+				</div>

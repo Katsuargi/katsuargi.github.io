@@ -13,7 +13,7 @@ var locations = {
 
 }
 var player = {
-    name: "X",
+    name: "locations.html #castle1",
     baseStr: 0,
     baseDex: 0,
     baseSta: 0,
@@ -55,6 +55,20 @@ var quests = {
     princess: 1,
 }
 
+var locations = {
+    "0A": "locations.html #castle1",
+    "1A": "locations.html #forestEntrance",
+    "2A": "locations.html #forest2",
+    "3A": "locations(locations.html #dragonCave",
+}
+
+var areaToCord = "0A";
+var xCord = 0;
+var xString = 0;
+var yCord = "A";
+
+
+
 //Character generation and display function.
 
 function storeTest() {
@@ -95,7 +109,7 @@ function storeTest() {
         document.getElementById("inventoryarea").classList.remove('hide');
         document.getElementById("secondary-content").classList.remove('hide');
         throneRoom();
-        $('#secondary-content').load("locations.html #castle1");
+        $('#secondary-content').load(locations[areaToCord]);
         ;
     }
 
@@ -239,12 +253,14 @@ function forestEntrance() {
     areaFrom = "playarea";
     areaTo = "forestEntrance";
     rEncounterForest();
+    north();
 }
 
 function forest2() {
     areaFrom = "playarea";
     areaTo = "forest2";
     rEncounterForest();
+    north();
 }
 
 function dragonCave() {
@@ -417,3 +433,12 @@ function loadData() {
     }
 
 
+// test functions.
+
+function north() {
+    var xCord = xCord + 1;
+    var xString = num.toString(xCord);
+    var areaToCord = xString.concat(yCord);
+    $("#secondary-content").load(locations.areaToCord);
+
+}
