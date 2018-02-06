@@ -444,5 +444,13 @@ function north() {
     areaToCord = xString.concat(yCord);
     console.log(areaToCord);
     $("#secondary-content").load(locations[areaToCord]);
+}
 
+function south() {
+    console.log(areaToCord);
+    xCord = xCord + -1;
+    xString = xCord.toString();
+    areaToCord = xString.concat(yCord);
+    console.log(areaToCord);
+    $("#secondary-content").load(locations[areaToCord]);
 }
