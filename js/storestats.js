@@ -59,7 +59,7 @@ var locations = {
     "0A": "locations.html #castle1",
     "1A": "locations.html #forestEntrance",
     "2A": "locations.html #forest2",
-    "3A": "locations(locations.html #dragonCave",
+    "3A": "locations.html #dragonCave",
 }
 
 var areaToCord = "0A";
