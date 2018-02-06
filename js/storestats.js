@@ -436,11 +436,11 @@ function loadData() {
 // test functions.
 
 function north() {
-    console.print(areaToCord);
+    console.log(areaToCord);
     var xCord = xCord + 1;
     var xString = xCord.toString();
     var areaToCord = xString.concat(yCord);
-    console.print(areaToCord);
+    console.log(areaToCord);
     $("#secondary-content").load(locations.areaToCord);
 
 }
