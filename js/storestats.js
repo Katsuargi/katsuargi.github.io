@@ -64,7 +64,7 @@ var locations = {
 
 var areaToCord = "0A";
 var xCord = 0;
-var xString = 0;
+var xString;
 var yCord = "A";
 
 
@@ -109,6 +109,7 @@ function storeTest() {
         document.getElementById("inventoryarea").classList.remove('hide');
         document.getElementById("secondary-content").classList.remove('hide');
         throneRoom();
+        console.log(areaToCord);
         $('#secondary-content').load(locations[areaToCord]);
         ;
     }
@@ -250,6 +251,7 @@ function throneRoom() {
 }
 
 function forestEntrance() {
+    console.log(areaToCord);
     areaFrom = "playarea";
     areaTo = "forestEntrance";
     rEncounterForest();
@@ -437,10 +439,10 @@ function loadData() {
 
 function north() {
     console.log(areaToCord);
-    var xCord = xCord + 1;
-    var xString = xCord.toString();
-    var areaToCord = xString.concat(yCord);
+    xCord = xCord + 1;
+    xString = xCord.toString();
+    areaToCord = xString.concat(yCord);
     console.log(areaToCord);
-    $("#secondary-content").load(locations.areaToCord);
+    $("#secondary-content").load(locations[areaToCord]);
 
 }
