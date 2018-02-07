@@ -255,14 +255,12 @@ function forestEntrance() {
     areaFrom = "playarea";
     areaTo = "forestEntrance";
     rEncounterForest();
-    north();
 }
 
 function forest2() {
     areaFrom = "playarea";
     areaTo = "forest2";
     rEncounterForest();
-    north();
 }
 
 function dragonCave() {

@@ -102,26 +102,4 @@ input {
 		margin: 0 auto;
 		width: 986px;
 	}
-
-	.play {
-		min-width: 650px;
-	}
-}
-
-@media only screen and (max-width: 985px) {
-	#secondary-content {
-		clear: left;
-	}
-	.play {
-/*		max-width: 70%; */
-	}
-
-}
-
-@media only screen and (max-width: 555px) {
-	.play {
-		max-width: 100%;
-		float: none;
-	}
-
 }
