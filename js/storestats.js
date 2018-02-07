@@ -56,16 +56,16 @@ var quests = {
 }
 
 var locations = {
-    "0A": "locations.html #castle1",
-    "1A": "locations.html #forestEntrance",
-    "2A": "locations.html #forest2",
-    "3A": "locations.html #dragonCave",
+    "00": "locations.html #castle1",
+    "01": "locations.html #shop",
+    "10": "locations.html #forestEntrance",
+    "20": "locations.html #forest2",
+    "30": "locations.html #dragonCave",
 }
 
-var areaToCord = "0A";
+var areaToCord = "00";
 var xCord = 0;
-var xString;
-var yCord = "A";
+var yCord = 0;
 
 
 
@@ -437,6 +437,8 @@ function loadData() {
 
 // test functions.
 
+//Navigation upgrade.
+
 function north() {
     console.log(areaToCord);
     xCord = xCord + 1;
@@ -451,6 +453,26 @@ function south() {
     xCord = xCord + -1;
     xString = xCord.toString();
     areaToCord = xString.concat(yCord);
+    console.log(areaToCord);
+    $("#secondary-content").load(locations[areaToCord]);
+}
+
+function east() {
+    console.log(areaToCord);
+    yCord = yCord + 1;
+    yString = yCord.toString();
+    xString = xCord.toString();
+    areaToCord = xString.concat(yString);
+    console.log(areaToCord);
+    $("#secondary-content").load(locations[areaToCord]);
+}
+
+function west() {
+    console.log(areaToCord);
+    yCord = yCord - 1;
+    yString = yCord.toString();
+    xString = xCord.toString();
+    areaToCord = xString.concat(yString);
     console.log(areaToCord);
     $("#secondary-content").load(locations[areaToCord]);
 }
