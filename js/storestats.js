@@ -1,4 +1,4 @@
-r5var inventory = [];
+var inventory = [];
 var bCart = [];
 var cost = 0;
 var swordI = {
