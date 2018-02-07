@@ -359,6 +359,7 @@ function playerDeath(){
 function princessQuest(){
     areaFrom = "playarea";
     areaTo = "princessQuest";
+    locations.00 = "locations.html #castle2";
     quests.princess = 2;
     areaTransitionV();
 }
