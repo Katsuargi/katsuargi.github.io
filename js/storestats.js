@@ -13,7 +13,7 @@ var locations = {
 
 }
 var player = {
-    name: "locations.html #castle1",
+    name: "X",
     baseStr: 0,
     baseDex: 0,
     baseSta: 0,
@@ -56,11 +56,11 @@ var quests = {
 }
 
 var locations = {
-    "00": "locations.html #castle1",
-    "01": "locations.html #shop",
-    "10": "locations.html #forestEntrance",
-    "20": "locations.html #forest2",
-    "30": "locations.html #dragonCave",
+    "0.0": "locations.html #castle1",
+    "0.1": "locations.html #shop",
+    "1.0": "locations.html #forestEntrance",
+    "2.0": "locations.html #forest2",
+    "3.0": "locations.html #dragonCave",
 }
 
 var monsters = {
@@ -69,7 +69,7 @@ var monsters = {
     drag: "monsters.html #dragonFight",
 }
 
-var areaToCord = "00";
+var areaToCord = "0.0";
 var xCord = 0;
 var yCord = 0;
 
@@ -368,7 +368,7 @@ function playerDeath(){
 function princessQuest(){
     areaFrom = "playarea";
     areaTo = "princessQuest";
-    locations."00" = "locations.html #castle2";
+    player[00] = "locations.html #castle2";
     quests.princess = 2;
     areaTransitionV();
 }
@@ -450,7 +450,7 @@ function loadData() {
 function north() {
     console.log(areaToCord);
     xCord = xCord + 1;
-    xString = xCord.toString();
+    xString = xCord.toString() + ".";
     areaToCord = xString.concat(yCord);
     console.log(areaToCord);
     $("#secondary-content").load(locations[areaToCord]);
@@ -459,7 +459,7 @@ function north() {
 function south() {
     console.log(areaToCord);
     xCord = xCord + -1;
-    xString = xCord.toString();
+    xString = xCord.toString() + ".";
     areaToCord = xString.concat(yCord);
     console.log(areaToCord);
     $("#secondary-content").load(locations[areaToCord]);
@@ -468,7 +468,7 @@ function south() {
 function east() {
     console.log(areaToCord);
     yCord = yCord + 1;
-    yString = yCord.toString();
+    yString = "." + yCord.toString();
     xString = xCord.toString();
     areaToCord = xString.concat(yString);
     console.log(areaToCord);
@@ -478,7 +478,7 @@ function east() {
 function west() {
     console.log(areaToCord);
     yCord = yCord - 1;
-    yString = yCord.toString();
+    yString = "." + yCord.toString();
     xString = xCord.toString();
     areaToCord = xString.concat(yString);
     console.log(areaToCord);
