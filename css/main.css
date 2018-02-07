@@ -14,7 +14,7 @@ img {
 }
 
 #flex {
-	display: flex;
+	display: inline-flex;
 }
 
 #secondary-content {
