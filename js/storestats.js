@@ -1,4 +1,4 @@
-var inventory = [];
+r5var inventory = [];
 var bCart = [];
 var cost = 0;
 var swordI = {
@@ -353,6 +353,7 @@ function fight(){
          player.money = player.money + enemyName.money;
          document.getElementById("moneydisplay").innerHTML=player.money;
          document.getElementById("expdisplay").innerHTML=player.exp;
+         $('secondary-content').replaceWith(areaToCord);
          areaTransitionV();
     }
 }
