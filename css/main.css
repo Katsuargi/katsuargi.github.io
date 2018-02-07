@@ -21,7 +21,7 @@ img {
 	border-size: 2px;
 	border-style: solid;
 	border-color: black;
-	float: left;
+/* float: left; */
 	max-width: 150px;
 }
 
@@ -29,7 +29,7 @@ img {
 	border-size: 2px;
 	border-style: solid;
 	border-color: black;
-	float: left;
+/*	float: left; */
 	max-width: 20%;
 	max-width: 150px;
 }
@@ -38,9 +38,9 @@ img {
 	border-style: solid;
 	border-color: black;
 	text-align: center;
-	float: left;
+/*	float: left; */
 	min-width: 300px;
-	max-width: 650px;
+/*	max-width: 650px; */
 }
 
 #navigationButtons {
@@ -113,7 +113,7 @@ input {
 		clear: left;
 	}
 	.play {
-		max-width: 70%;
+/*		max-width: 70%; */
 	}
 
 }
