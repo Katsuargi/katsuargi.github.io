@@ -63,6 +63,12 @@ var locations = {
     "30": "locations.html #dragonCave",
 }
 
+var monsters = {
+    gob: "monsters.html #goblinFight",
+    wolf: "monsters.html #wolfFight",
+    drag: "monsters.html #dragonFight",
+}
+
 var areaToCord = "00";
 var xCord = 0;
 var yCord = 0;
@@ -276,6 +282,7 @@ function dragonCave() {
 function goBack(){
     areaFrom = "playarea";
     areaTo = "backup";
+    $("#secondary-content").load(locations[areaToCord]);
     areaTransition();
 }
 
@@ -310,9 +317,11 @@ function rEncounterForest() {
     console.log(r);
     if (r <= .25){ 
         gob();
+        $("#secondary-content").load(monsters.gob);
     } 
     else if (r >= .26 && r <= .5) {
         wolfF();
+        $("#secondary-content").load(monsters.wolf);
     }
     else { 
         areaTransition();
@@ -359,7 +368,7 @@ function playerDeath(){
 function princessQuest(){
     areaFrom = "playarea";
     areaTo = "princessQuest";
-    locations.00 = "locations.html #castle2";
+    locations."00" = "locations.html #castle2";
     quests.princess = 2;
     areaTransitionV();
 }
