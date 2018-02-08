@@ -114,9 +114,8 @@ function storeTest() {
         document.getElementById("stats").classList.remove('hide');
         document.getElementById("inventoryarea").classList.remove('hide');
         document.getElementById("secondary-content").classList.remove('hide');
-        throneRoom();
         console.log(areaToCord);
-        $('#secondary-content').load(locations[areaToCord]);
+        $('#playarea').load(locations[areaToCord]);
         ;
     }
 
@@ -124,10 +123,7 @@ function storeTest() {
 
 //shop functions.
 
-function shopTest() {
-    document.getElementById("playarea").classList.add('hide');
-    document.getElementById("shop").classList.remove('hide');
-}
+
 
 function addItem() {
     cost = cost + workingCost;
@@ -202,88 +198,46 @@ function shopDisplayUp(){
 
 //Area transition functions.
 
-function areaTransition(){
-    const main = document.getElementById(areaFrom);
-    const div = document.getElementById(areaTo);
-    const backup = document.getElementById("backup");
-    const clone = div.cloneNode(true);
-    const clone2 = div.cloneNode(true);
-
-    while (main.firstChild) main.firstChild.remove();
-    while (backup.firstChild) backup.firstChild.remove();
-
-    main.appendChild(clone);
-    backup.appendChild(clone2);
-    ;
-}
-
-//Transition from areas that shouldn't generate a return point.
-
-function areaTransitionV(){
-    const main = document.getElementById(areaFrom);
-    const div = document.getElementById(areaTo);
-    const clone = div.cloneNode(true);
-
-    while (main.firstChild) main.firstChild.remove();
-
-    main.appendChild(clone);
-}
-
-function throneRoom() {
-    console.log(player)
-    if (quests.princess == 1) {
-    areaFrom = "playarea";
-    areaTo = "castle1";
-    }
-    else if (quests.princess == 2 || quests.princess == 3) {
-    areaFrom = "playarea";
-    areaTo = "castle2";
-    }
-    else if (quests.princess == 4) {
-    areaFrom = "playarea";
-    areaTo = "castle2";
-    document.getElementById("kingQuestText").innerHTML = "The king is super happy you saved the princess.";
-    quests.princess = 5;
-    player.money = player.money + 200;
-    player.exp = player.exp + 20;
-    }
-    else if (quests.princess == 5){
-    areaFrom = "playarea";
-    areaTo = "castle2";
-    document.getElementById("kingQuestText").innerHTML = "The king and princess are happy.";
-    }
-    console.log(quests.princess)
-    areaTransition();
-}
-
-function forestEntrance() {
+function north() {
     console.log(areaToCord);
-    areaFrom = "playarea";
-    areaTo = "forestEntrance";
-    rEncounterForest();
+    xCord = xCord + 1;
+    xString = xCord.toString() + ".";
+    areaToCord = xString.concat(yCord);
+    console.log(areaToCord);
+    $("#playarea").load(locations[areaToCord]);
+    rEncounter()
 }
 
-function forest2() {
-    areaFrom = "playarea";
-    areaTo = "forest2";
-    rEncounterForest();
+function south() {
+    console.log(areaToCord);
+    xCord = xCord + -1;
+    xString = xCord.toString() + ".";
+    areaToCord = xString.concat(yCord);
+    console.log(areaToCord);
+    $("#playarea").load(locations[areaToCord]);
+    rEncounter()
 }
 
-function dragonCave() {
-    areaFrom = "playarea";
-    areaTo = "dragonCave";
-    if(quests.princess >= 3){
-        areaTransition();
-    } else {
-      dragonF();
-    }
+function east() {
+    console.log(areaToCord);
+    yCord = yCord + 1;
+    yString = "." + yCord.toString();
+    xString = xCord.toString();
+    areaToCord = xString.concat(yString);
+    console.log(areaToCord);
+    $("#playarea").load(locations[areaToCord]);
+    rEncounter()
 }
 
-function goBack(){
-    areaFrom = "playarea";
-    areaTo = "backup";
-    $("#secondary-content").load(locations[areaToCord]);
-    areaTransition();
+function west() {
+    console.log(areaToCord);
+    yCord = yCord - 1;
+    yString = "." + yCord.toString();
+    xString = xCord.toString();
+    areaToCord = xString.concat(yString);
+    console.log(areaToCord);
+    $("#playarea").load(locations[areaToCord]);
+    rEncounter()
 }
 
 //Battle functions.
@@ -293,7 +247,6 @@ function gob() {
     areaTo = "goblinFight";
     goblin.health = 20;
     enemyName = goblin;
-    areaTransitionV();
 }
 
 function wolfF() {
@@ -301,7 +254,6 @@ function wolfF() {
     areaTo = "wolfFight";
     wolf.health = 40;
     enemyName = wolf;
-    areaTransitionV();
 }
 
 function dragonF() {
@@ -309,22 +261,20 @@ function dragonF() {
     areaTo = "dragonFight";
     enemyName = dragon;
     quests.princess = 3;
-    areaTransitionV();
 }
 
-function rEncounterForest() {
+function rEncounter() {
     var r = Math.random();
     console.log(r);
-    if (r <= .25){ 
-        gob();
-        $("#secondary-content").load(monsters.gob);
-    } 
-    else if (r >= .26 && r <= .5) {
-        wolfF();
-        $("#secondary-content").load(monsters.wolf);
-    }
-    else { 
-        areaTransition();
+        if  (xCord === 1 || xCord === 2) {
+        if (r <= .25){ 
+            gob();
+            $("#playarea").load(monsters.gob);
+        } 
+        else if (r >= .26 && r <= .5) {
+            wolfF();
+            $("#playarea").load(monsters.wolf);
+        }
     }
 }
 
@@ -347,31 +297,24 @@ function fight(){
         playerDeath()
     }
     else if(enemyName.health <=0){
-         areaFrom = "playarea";
-         areaTo = "victory";
          player.exp = player.exp + enemyName.exp;
          player.money = player.money + enemyName.money;
          document.getElementById("moneydisplay").innerHTML=player.money;
          document.getElementById("expdisplay").innerHTML=player.exp;
-         $('secondary-content').replaceWith(areaToCord);
-         areaTransitionV();
+         $('playarea').load(locations[areaToCord]);
     }
 }
 
 function playerDeath(){
-    areaFrom = "playarea";
-    areaTo = "dead";
-    areaTransition();
 }
 
 //Quest functions.
 
 function princessQuest(){
-    areaFrom = "playarea";
-    areaTo = "princessQuest";
+ //   areaFrom = "playarea";
+ //   areaTo = "princessQuest";
     locations[0.0] = "locations.html #castle2";
     quests.princess = 2;
-    areaTransitionV();
 }
 
 function savePrincess(){
@@ -439,49 +382,8 @@ function loadData() {
         document.getElementById("stats").classList.remove('hide');
         document.getElementById("inventoryarea").classList.remove('hide');
         document.getElementById("secondary-content").classList.remove('hide');
-        throneRoom();
         ;
     }
 
 
 // test functions.
-
-//Navigation upgrade.
-
-function north() {
-    console.log(areaToCord);
-    xCord = xCord + 1;
-    xString = xCord.toString() + ".";
-    areaToCord = xString.concat(yCord);
-    console.log(areaToCord);
-    $("#secondary-content").load(locations[areaToCord]);
-}
-
-function south() {
-    console.log(areaToCord);
-    xCord = xCord + -1;
-    xString = xCord.toString() + ".";
-    areaToCord = xString.concat(yCord);
-    console.log(areaToCord);
-    $("#secondary-content").load(locations[areaToCord]);
-}
-
-function east() {
-    console.log(areaToCord);
-    yCord = yCord + 1;
-    yString = "." + yCord.toString();
-    xString = xCord.toString();
-    areaToCord = xString.concat(yString);
-    console.log(areaToCord);
-    $("#secondary-content").load(locations[areaToCord]);
-}
-
-function west() {
-    console.log(areaToCord);
-    yCord = yCord - 1;
-    yString = "." + yCord.toString();
-    xString = xCord.toString();
-    areaToCord = xString.concat(yString);
-    console.log(areaToCord);
-    $("#secondary-content").load(locations[areaToCord]);
-}
