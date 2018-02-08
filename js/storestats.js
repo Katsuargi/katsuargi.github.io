@@ -204,7 +204,6 @@ function north() {
     xString = xCord.toString() + ".";
     areaToCord = xString.concat(yCord);
     console.log(areaToCord);
-    $("#playarea").load(locations[areaToCord]);
     rEncounter()
 }
 
@@ -214,7 +213,6 @@ function south() {
     xString = xCord.toString() + ".";
     areaToCord = xString.concat(yCord);
     console.log(areaToCord);
-    $("#playarea").load(locations[areaToCord]);
     rEncounter()
 }
 
@@ -225,7 +223,6 @@ function east() {
     xString = xCord.toString();
     areaToCord = xString.concat(yString);
     console.log(areaToCord);
-    $("#playarea").load(locations[areaToCord]);
     rEncounter()
 }
 
@@ -236,57 +233,45 @@ function west() {
     xString = xCord.toString();
     areaToCord = xString.concat(yString);
     console.log(areaToCord);
-    $("#playarea").load(locations[areaToCord]);
     rEncounter()
 }
 
 //Battle functions.
 
-function gob() {
-    areaFrom = "playarea";
-    areaTo = "goblinFight";
-    goblin.health = 20;
-    enemyName = goblin;
-}
-
-function wolfF() {
-    areaFrom = "playarea";
-    areaTo = "wolfFight";
-    wolf.health = 40;
-    enemyName = wolf;
-}
-
-function dragonF() {
-    areaFrom = "playarea";
-    areaTo = "dragonFight";
-    enemyName = dragon;
-    quests.princess = 3;
-}
 
 function rEncounter() {
     var r = Math.random();
     console.log(r);
         if  (xCord === 1 || xCord === 2) {
         if (r <= .25){ 
-            gob();
             $("#playarea").load(monsters.gob);
+            enemyName=goblin;
+            enemyHealth = enemyName.health;
         } 
         else if (r >= .26 && r <= .5) {
-            wolfF();
             $("#playarea").load(monsters.wolf);
+            enemyName=wolf;
+            enemyHealth = enemyName.health;
+        }
+        else {
+        $("#playarea").load(locations[areaToCord]);
         }
     }
+
+        else {
+            $("#playarea").load(locations[areaToCord]);
+        }
 }
 
 function fight(){
     console.log(enemyName);
-    while(player.health > 0 && enemyName.health > 0) {
+    while(player.health > 0 && enemyHealth > 0) {
         var playerAtt = (Math.random() * 20) + player.baseDex;
         var playerDef = player.baseDex + player.defense + 10;
         var enemyAtt = (Math.random() * 20) + enemyName.baseDex;
         var enemyDef = enemyName.baseDex + 10;
         if(playerAtt > enemyDef) {
-            enemyName.health = enemyName.health - (player.baseStr + player.weaponDam);
+            enemyHealth = enemyHealth - (player.baseStr + player.weaponDam);
         }
         if(enemyAtt > playerDef) {
         player.health = player.health - (enemyName.baseStr);
@@ -296,12 +281,12 @@ function fight(){
     if(player.health <=0) {
         playerDeath()
     }
-    else if(enemyName.health <=0){
+    else if(enemyHealth <=0){
          player.exp = player.exp + enemyName.exp;
          player.money = player.money + enemyName.money;
          document.getElementById("moneydisplay").innerHTML=player.money;
          document.getElementById("expdisplay").innerHTML=player.exp;
-         $('playarea').load(locations[areaToCord]);
+         $('#playarea').load(locations[areaToCord]);
     }
 }
 
