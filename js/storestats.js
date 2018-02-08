@@ -60,13 +60,21 @@ var locations = {
     "0.1": "locations.html #shop",
     "1.0": "locations.html #forestEntrance",
     "2.0": "locations.html #forest2",
-    "3.0": "locations.html #dragonCave",
+    "3.0": "locations.html #forest2",
+    "4.0": "locations.html #forest2",
+    "5.0": "locations.html #forest3",
+    "6.0": "locations.html #dragonCave",
 }
 
 var monsters = {
     gob: "monsters.html #goblinFight",
     wolf: "monsters.html #wolfFight",
-    drag: "monsters.html #dragonFight",
+    dragon: "monsters.html #dragonFight",
+}
+
+var events = {
+    playerDead: "events.html #dead",
+    victory: "events.html #victory",
 }
 
 var areaToCord = "0.0";
@@ -199,50 +207,53 @@ function shopDisplayUp(){
 //Area transition functions.
 
 function north() {
-    console.log(areaToCord);
     xCord = xCord + 1;
     xString = xCord.toString() + ".";
     areaToCord = xString.concat(yCord);
-    console.log(areaToCord);
-    rEncounter()
+    if  (xCord >= 1 && xCord <= 6){
+        fEncounter()
+    } else {$("#playarea").load(locations[areaToCord]);}
 }
 
 function south() {
-    console.log(areaToCord);
     xCord = xCord + -1;
     xString = xCord.toString() + ".";
     areaToCord = xString.concat(yCord);
-    console.log(areaToCord);
-    rEncounter()
+    if  (xCord >= 1 && xCord <= 5){
+        fEncounter()
+    } else {$("#playarea").load(locations[areaToCord]);}
+
 }
 
 function east() {
-    console.log(areaToCord);
     yCord = yCord + 1;
     yString = "." + yCord.toString();
     xString = xCord.toString();
     areaToCord = xString.concat(yString);
     console.log(areaToCord);
-    rEncounter()
+    $("#playarea").load(locations[areaToCord]);
 }
 
 function west() {
-    console.log(areaToCord);
     yCord = yCord - 1;
     yString = "." + yCord.toString();
     xString = xCord.toString();
     areaToCord = xString.concat(yString);
     console.log(areaToCord);
-    rEncounter()
+    $("#playarea").load(locations[areaToCord]);
+}
+
+function goBack() {
+    $('#playarea').load(locations[areaToCord]);
 }
 
 //Battle functions.
 
 
-function rEncounter() {
+function fEncounter() {
     var r = Math.random();
     console.log(r);
-        if  (xCord === 1 || xCord === 2) {
+        if  (xCord >= 1 && xCord <= 5) {
         if (r <= .25){ 
             $("#playarea").load(monsters.gob);
             enemyName=goblin;
@@ -258,6 +269,12 @@ function rEncounter() {
         }
     }
 
+        if (xCord == 6.0 && yCord == 0.0 && quests.princess == 2) {
+            $("#playarea").load(monsters.dragon);
+            enemyName=dragon;
+            enemyHealth = enemyName.health;
+            locations["6.0"] = "locations.html #dragonCave2";
+        }
         else {
             $("#playarea").load(locations[areaToCord]);
         }
@@ -279,33 +296,40 @@ function fight(){
         document.getElementById("healthdisplay").innerHTML=player.health;
     }
     if(player.health <=0) {
-        playerDeath()
+        $('#playarea').load(events.playerDead);
     }
     else if(enemyHealth <=0){
          player.exp = player.exp + enemyName.exp;
          player.money = player.money + enemyName.money;
          document.getElementById("moneydisplay").innerHTML=player.money;
          document.getElementById("expdisplay").innerHTML=player.exp;
-         $('#playarea').load(locations[areaToCord]);
+         $('#playarea').load(events.victory);
     }
-}
-
-function playerDeath(){
 }
 
 //Quest functions.
 
 function princessQuest(){
- //   areaFrom = "playarea";
- //   areaTo = "princessQuest";
-    locations[0.0] = "locations.html #castle2";
+    locations["0.0"] = "locations.html #castle2";
     quests.princess = 2;
+    document.getElementById("startingText").innerHTML="You've accepted the quest!";
+    document.getElementById("startQuest").classList.add('hide');
 }
 
 function savePrincess(){
-    document.getElementById("princessSave").classList.add('hide');
-    document.getElementById("princessText").innerHTML = "You've saved the princess.";
-    quests.princess = 4;
+    quests.princess = 3;
+    document.getElementById("princessText").innerHTML="You've saved the princess! Take her home!";
+    document.getElementById("princessRescue").classList.add('hide');
+    locations["6.0"] = "locations.html #dragonCave";
+}
+
+function princessComplete(){
+    if(quests.princess == 3){
+        quests.princess = 4;
+        document.getElementById("kingQuestText").innerHTML="The princess returns to the king's side and he hands you your reward.";
+        document.getElementById("returnPrincess").classList.add('hide');
+        locations["0.0"] = "locations.html #castle3";
+    }
 }
 
 
@@ -367,7 +391,7 @@ function loadData() {
         document.getElementById("stats").classList.remove('hide');
         document.getElementById("inventoryarea").classList.remove('hide');
         document.getElementById("secondary-content").classList.remove('hide');
-        ;
+        $("#playarea").load(locations[areaToCord]);
     }
 
 

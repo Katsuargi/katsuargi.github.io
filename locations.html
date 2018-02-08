@@ -1,13 +1,13 @@
 			<div id="castle1" class="play">
 				<h2>King's Castle</h2>
-				<p>You have finished character creation. Welcome to the starting area.
+				<p id="startingText">You have finished character creation. Welcome to the starting area.
 					'Starting text here.'
 
 					The king has a quest for you.
 				</p>
 				<div id="navigationButtons">
 					<hr>
-					<button onclick="princessQuest()">Accept quest.</button>
+					<button id="startQuest" onclick="princessQuest()">Accept quest.</button>
 					<button onclick="saveData()">Save Game.</button>
 					<button onclick="north()">North</button>
 					<button onclick="east()">East</button>
@@ -17,6 +17,19 @@
 			<div id="castle2" class="play">
 				<h2>King's Castle</h2>
 				<p id="kingQuestText">You have accepted the king's quest. He waits wait baited breath for you to hurry up and get on with it.
+				</p>
+				<div id="navigationButtons">
+					<hr>
+					<button onclick="east()">East</button>
+					<button onclick="north()">North</button>
+					<button onclick="saveData()">Save Game.</button>
+					<button id="returnPrincess" onclick="princessComplete()">Return Princess.</button>
+				</div>
+			</div>
+
+			<div id="castle3" class="play">
+				<h2>King's Castle</h2>
+				<p id="kingQuestText">The king and princess sit happily on their thrones.
 				</p>
 				<div id="navigationButtons">
 					<hr>
@@ -49,18 +62,37 @@
 				<p>You have wandered deeper into the forest.</p>
 				<div id="navigationButtons">
 					<hr>
-					<button onclick="north()">Dragon Cave</button>
+					<button onclick="north()">North</button>
+					<button onclick="south()">South</button>
+				</div>
+			</div>
+
+			<div id="forest3" class="play">
+				<h2>In the forest.</h2>
+				<p>You stand at the mouth of the dragon's cave.</p>
+				<div id="navigationButtons">
+					<hr>
+					<button onclick="north()">Dragon's Cave</button>
 					<button onclick="south()">South</button>
 				</div>
 			</div>
 
 			<div id="dragonCave" class="play">
 				<h2> It's the Dragon's cave!</h2>
+				<span id="princessText">The cave is empty now.</span>
+					<div id="navigationButtons">
+						<hr>
+					<button onclick="south()">South</button>
+				    </div>
+				</div>
+
+			<div id="dragonCave2" class="play">
+				<h2> It's the Dragon's cave!</h2>
 				<span id="princessText">The princess is here.</span>
 					<div id="navigationButtons">
 						<hr>
-					<button id="princessSave" onclick="savePrincess()">Save the princess!</button>
 					<button onclick="south()">South</button>
+					<button id="princessRescue" onclick="savePrincess()">Save the Princess!</button>
 				    </div>
 				</div>
 
@@ -78,3 +110,4 @@
 			<button onclick="west()">West</button>
 
 		</div>
+
