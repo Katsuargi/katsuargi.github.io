@@ -376,10 +376,13 @@ function saveData(){
 }
 
 function loadData() {
+
+        //import data
         player = JSON.parse(localStorage.getItem('players'));
         inventory = JSON.parse(localStorage.getItem('inventorys'));
         quests = JSON.parse(localStorage.getItem('questss'));
         console.log(player);
+        //display update
         document.getElementById("playern").innerHTML=player.name;
         document.getElementById("healthdisplay").innerHTML=player.health;
         document.getElementById("strdisplay").innerHTML=player.baseStr;
@@ -391,6 +394,14 @@ function loadData() {
         document.getElementById("stats").classList.remove('hide');
         document.getElementById("inventoryarea").classList.remove('hide');
         document.getElementById("secondary-content").classList.remove('hide');
+        //Quest flag update.
+        if (quests.princess == 2 || quests.princess == 3){
+            locations["0.0"] = "locations.html #castle2";
+        }
+        else if (quests.princess == 4) {
+            locations["0.0"] = "locations.html #castle3";
+        }
+        //load area
         $("#playarea").load(locations[areaToCord]);
     }
 
