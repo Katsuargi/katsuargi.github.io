@@ -301,7 +301,7 @@ function fight(){
         $('#playarea').load(events.playerDead);
     }
     else if(enemyHealth <=0){
-         document.getElementById("secondary-content").innerHTML=("Combat won after " + rounds + " rounds.");
+         document.getElementById("combat-logs").innerHTML=("Combat won after " + rounds + " rounds.");
          player.exp = player.exp + enemyName.exp;
          player.money = player.money + enemyName.money;
          document.getElementById("moneydisplay").innerHTML=player.money;
@@ -316,12 +316,14 @@ function princessQuest(){
     locations["0.0"] = "locations.html #castle2";
     quests.princess = 2;
     document.getElementById("startingText").innerHTML="You've accepted the quest!";
+    document.getElementById("princess-logs").innerHTML="Go north and save the princess from the dragon!";
     document.getElementById("startQuest").classList.add('hide');
 }
 
 function savePrincess(){
     quests.princess = 3;
     document.getElementById("princessText").innerHTML="You've saved the princess! Take her home!";
+    document.getElementById("princess-logs").innerHTML="Take the princess home!";
     document.getElementById("princessRescue").classList.add('hide');
     locations["6.0"] = "locations.html #dragonCave";
 }
@@ -330,6 +332,7 @@ function princessComplete(){
     if(quests.princess == 3){
         quests.princess = 4;
         document.getElementById("kingQuestText").innerHTML="The princess returns to the king's side and he hands you your reward.";
+        document.getElementById("princess-logs").innerHTML="Princes quest: Complete!";
         document.getElementById("returnPrincess").classList.add('hide');
         locations["0.0"] = "locations.html #castle3";
     }
