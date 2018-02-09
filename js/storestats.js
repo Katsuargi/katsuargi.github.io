@@ -282,7 +282,9 @@ function fEncounter() {
 
 function fight(){
     console.log(enemyName);
+    var rounds = 0;
     while(player.health > 0 && enemyHealth > 0) {
+        rounds = rounds + 1;
         var playerAtt = (Math.random() * 20) + player.baseDex;
         var playerDef = player.baseDex + player.defense + 10;
         var enemyAtt = (Math.random() * 20) + enemyName.baseDex;
@@ -299,6 +301,7 @@ function fight(){
         $('#playarea').load(events.playerDead);
     }
     else if(enemyHealth <=0){
+         document.getElementById("secondary-content").innerHTML=("Combat won after " + rounds + " rounds.");
          player.exp = player.exp + enemyName.exp;
          player.money = player.money + enemyName.money;
          document.getElementById("moneydisplay").innerHTML=player.money;
