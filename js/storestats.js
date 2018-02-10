@@ -2,12 +2,14 @@ var inventory = [];
 var bCart = [];
 var cost = 0;
 var swordI = {
-    name: " Sword",
-    price: 50
+    name: "Sword",
+    price: 50,
+    damage: 3,
 }
 var leatherI = {
-    name: " Leather Armor",
-    price: 100
+    name: "Leather Armor",
+    price: 100,
+    defense: 3,
 }
 var locations = {
 
@@ -19,6 +21,8 @@ var player = {
     baseSta: 0,
     health: 0,
     money: 100,
+    weapon: "Knife",
+    armor: "Leather Armor",
     weaponDam: 0,
     defense: 0,
     exp: 0,  
@@ -75,6 +79,7 @@ var monsters = {
 var events = {
     playerDead: "events.html #dead",
     victory: "events.html #victory",
+    equip: "events.html #equip_screen",
 }
 
 var areaToCord = "0.0";
@@ -109,7 +114,7 @@ function storeTest() {
     }
     else {
         player.health = player.baseSta*10;
-        inventory.push("Knife", " Clothes");
+        inventory.push("Knife", "Clothes");
         player.weaponDam = 1;
         document.getElementById("playern").innerHTML=player.name;
         document.getElementById("healthdisplay").innerHTML=player.health;
@@ -123,6 +128,8 @@ function storeTest() {
         document.getElementById("inventoryarea").classList.remove('hide');
         document.getElementById("secondary-content").classList.remove('hide');
         console.log(areaToCord);
+        console.log(inventory[0]);
+        console.log(inventory[1]);
         $('#playarea').load(locations[areaToCord]);
         ;
     }
@@ -413,3 +420,34 @@ function loadData() {
 
 
 // test functions.
+
+function equipment() {
+    $('#playarea').load(events.equip);
+}
+
+function test1() {
+    document.getElementById("inv1").innerHTML=inventory[0];
+    document.getElementById("inv2").innerHTML=inventory[1];
+    document.getElementById("inv3").innerHTML=inventory[2];
+    document.getElementById("inv4").innerHTML=inventory[3];
+    document.getElementById("inv5").innerHTML=inventory[4];
+    document.getElementById("inv6").innerHTML=inventory[5];
+    document.getElementById("inv7").innerHTML=inventory[6];
+    document.getElementById("inv8").innerHTML=inventory[7];
+}
+
+function equip1() {
+    if (inventory[0] != player.weapon) {
+        player.weapon = inventory[0];
+        document.getElementById("weapon").innerHTML=("Weapon: You currently have a " + inventory[0] + " equipped.");
+    }
+}
+
+function equip3() {
+    if (inventory[2] != player.weapon) {
+        player.weapon = inventory[2];
+        console.log(inventory[2]);
+        console.log(player.weapon);
+        document.getElementById("weapon").innerHTML=("Weapon: You currently have a " + inventory[2] + " equipped.");
+    }
+}

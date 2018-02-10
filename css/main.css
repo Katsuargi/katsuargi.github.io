@@ -47,6 +47,10 @@ img {
 	position: bottom;
 }
 
+#equip {
+  position: bottom;
+}
+
 .hide {
 	visibility: hidden;
 	max-height: 1px;
