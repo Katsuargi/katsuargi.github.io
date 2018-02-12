@@ -40,8 +40,8 @@ var player = {
     baseSta: 0,
     health: 0,
     money: 100,
-    weapon: "knife",
-    armor: "clothes",
+    weapon: " Knife",
+    armor: " Clothes",
     weaponDam: 0,
     defense: 0,
     exp: 0,  
@@ -219,8 +219,6 @@ function buy() {
         document.getElementById("moneydisplay").innerHTML=player.money;
         bCart.length = 0;
         cost = 0;
-        if(swordY = true) {player.weaponDam = 3}
-        if(leatherY = true) {player.defense = 3}
         shopDisplayUp();
     }  else {
         alert("Not enough money!")
@@ -465,57 +463,33 @@ function equipment() {
 function test2() {
  var x = 0;
  var y = fInventory.length;
+ document.getElementById("populate").classList.add('hide');
  while (x < y) {
     var btn = document.createElement("BUTTON");
     var text = document.createTextNode(inventory[x]);
     btn.appendChild(text);
-    btn.onclick = equip();
     document.getElementById("equip_screen").appendChild(btn);
-    btn.id = (fInventory[x]);
+    //btn.id = (fInventory[x].id);
+    btn.id = (x);
+    btn.onclick = equip;
     console.log(btn.id);
     x = x+1;
  }
 }
 
-function equip1() {
-    if (inventory[0] != player.weapon && (inventory[0] == "knife" || inventory[0] == "sword")) {
-        player.weapon = inventory[0];
-        document.getElementById("weapon").innerHTML=("Weapon: You currently have a " + inventory[0] + " equipped.");
-        player.weaponDam = inventory[0].damage;
-        console.log(player.weaponDam);
-    } else if (inventory[0] != player.armor && (inventory[0] == "clothes" || inventory[0] == "larmor")) {
-        player.weapon = inventory[0];
-        document.getElementById("armor").innerHTML=("Armor: You currently have a " + inventory[0] + " equipped.");
-        player.defense = inventory[0].defense;
-    }
-}
-
-/**function equip3() {
-    if (inventory[2] != player.weapon && (inventory[2] == "knife" || inventory[2] == "sword")) {
-        player.weapon = inventory[2];
-        document.getElementById("weapon").innerHTML=("Weapon: You currently have a " + inventory[2] + " equipped.");
-        player.weaponDam = inventory[2].damage;
-        console.log(player.weaponDam);
-    } else if (inventory[2] != player.armor && (inventory[2] == "clothes" || inventory[2] == "larmor")) {
-        player.weapon = inventory[2];
-        document.getElementById("armor").innerHTML=("Armor: You currently have a " + inventory[2] + " equipped.");
-        player.defense = inventory[2].defense;
-    }
-} **/
-
 function equip(){
     console.log(this.id);
-    console.log(this.name);
-    var buttonItem = document.getElementById(this.id);
-    if (buttonItem != player.weapon && (buttonItem == "knife" || buttonItem == "sword")) {
-        player.weapon = buttonItem.name;
-        document.getElementById("weapon").innerHTML=("Weapon: You currently have a " + buttonItem.name + " equipped.");
-        player.weaponDam = buttonItem.damage;
+    x = this.id;
+    console.log(x);
+    if (fInventory[x].name != player.weapon && (fInventory[x].id == "knife" || fInventory[x].id == "sword")) {
+        player.weapon = fInventory[x].name;
+        document.getElementById("weapon").innerHTML=("Weapon: You currently have a " + fInventory[x].name + " equipped.");
+        player.weaponDam = fInventory[x].damage;
         console.log(player.weaponDam);
-    } else if (buttonItem != player.armor && (buttonItem == "clothes" || buttonItem == "larmor")) {
-        player.weapon = buttonItem.name;
-        document.getElementById("armor").innerHTML=("Armor: You currently have a " + buttonItem.name + " equipped.");
-        player.defense = buttonItem.defense;
+    } else if (fInventory[x].name != player.armor && (fInventory[x].id == "clothes" || fInventory[x].id == "larmor")) {
+        player.weapon = fInventory[x].name;
+        document.getElementById("armor").innerHTML=("Armor: You currently have a " + fInventory[x].name + " equipped.");
+        player.defense = fInventory[x].defense;
     }
 
 } 
