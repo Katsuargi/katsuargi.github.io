@@ -7,6 +7,7 @@ var sword = {
     price: 50,
     damage: 3,
     id: "sword",
+    type: "weapon",
 }
 
 var knife = {
@@ -14,6 +15,7 @@ var knife = {
     price: 20,
     damage: 1,
     id: "knife",
+    type: "weapon",
 }
 
 var larmor = {
@@ -21,6 +23,7 @@ var larmor = {
     price: 100,
     defense: 3,
     id: "larmor",
+    type: "armor",
 }
 
 var clothes = {
@@ -28,7 +31,17 @@ var clothes = {
     price: 100,
     defense: 3,
     id: "clothes",
+    type: "armor",
 }
+
+var hPotion = {
+    name: " Health Potion",
+    price: 25,
+    effect: 25,
+    id: "hPotion",
+    type: "consumable",
+}
+
 
 var locations = {
 
@@ -208,6 +221,20 @@ function removeLeatherA(){
     workingName = larmor.name;
     workingCost = larmor.price;
     workingItem = larmor;
+    removeItem();
+}
+
+function addHPotion() {
+    workingName = hPotion.name;
+    workingCost = hPotion.price;
+    workingItem = hPotion;
+    addItem();
+}
+
+function removeHPotion() {
+    workingName = hPotion.name;
+    workingCost = hPotion.cost;
+    workingItem = hPotion;
     removeItem();
 }
 
@@ -443,22 +470,11 @@ function loadData() {
     }
 
 
-// test functions.
+// Equipment and Items
 
 function equipment() {
     $('#playarea').load(events.equip);
 }
-
-/**function test1() {
-    document.getElementById("inv1").innerHTML=inventory[0];
-    document.getElementById("inv2").innerHTML=inventory[1];
-    document.getElementById("inv3").innerHTML=inventory[2];
-    document.getElementById("inv4").innerHTML=inventory[3];
-    document.getElementById("inv5").innerHTML=inventory[4];
-    document.getElementById("inv6").innerHTML=inventory[5];
-    document.getElementById("inv7").innerHTML=inventory[6];
-    document.getElementById("inv8").innerHTML=inventory[7];
-} **/
 
 function test2() {
  var x = 0;
@@ -469,7 +485,6 @@ function test2() {
     var text = document.createTextNode(inventory[x]);
     btn.appendChild(text);
     document.getElementById("equip_screen").appendChild(btn);
-    //btn.id = (fInventory[x].id);
     btn.id = (x);
     btn.onclick = equip;
     console.log(btn.id);
@@ -481,15 +496,40 @@ function equip(){
     console.log(this.id);
     x = this.id;
     console.log(x);
-    if (fInventory[x].name != player.weapon && (fInventory[x].id == "knife" || fInventory[x].id == "sword")) {
+    if (fInventory[x].name != player.weapon && (fInventory[x].type == "weapon")) {
         player.weapon = fInventory[x].name;
         document.getElementById("weapon").innerHTML=("Weapon: You currently have a " + fInventory[x].name + " equipped.");
         player.weaponDam = fInventory[x].damage;
         console.log(player.weaponDam);
-    } else if (fInventory[x].name != player.armor && (fInventory[x].id == "clothes" || fInventory[x].id == "larmor")) {
+    } else if (fInventory[x].name != player.armor && (fInventory[x].type == "armor")) {
         player.weapon = fInventory[x].name;
         document.getElementById("armor").innerHTML=("Armor: You currently have a " + fInventory[x].name + " equipped.");
         player.defense = fInventory[x].defense;
+    } else if (fInventory[x].type == "consumable" && fInventory[x].id = hPotion) {
+        useHPotion();
+        this.classList.add('hide')
     }
 
 } 
+
+function useHPotion(){
+        if (player.health < (player.baseSta * 10)){
+            const id1 = inventory.indexOf(hPotion.name);
+            const id2 = fInventory.indexOf(hPotion);
+            
+            player.health = (player.health + 25);
+            if (player.health > (player.baseSta * 10)) {
+                player.health = (player.baseSta * 10);
+            }
+            
+            if (id1 !== -1) {
+                inventory.splice(id1, 1);
+            }
+
+            if (id2 !== -1) {
+            fInventory.splice(id2, 1);
+        }
+        document.getElementById("healthdisplay").innerHTML=player.health;
+        document.getElementById("inventory").innerHTML=inventory;
+    }
+}
