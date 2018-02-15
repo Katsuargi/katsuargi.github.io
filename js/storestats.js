@@ -57,7 +57,18 @@ var player = {
     armor: " Clothes",
     weaponDam: 0,
     defense: 0,
-    exp: 0,  
+    exp: 0,
+    level: 1,
+    eStats: 0,
+}
+
+var levelChart = {
+    "1": 10,
+    "2": 30,
+    "3": 50,
+    "4": 80,
+    "5": 120,
+    "6": 200,
 }
 
 var goblin = {
@@ -156,6 +167,7 @@ function storeTest() {
         document.getElementById("stadisplay").innerHTML=player.baseSta;
         document.getElementById("moneydisplay").innerHTML=player.money;
         document.getElementById("expdisplay").innerHTML=player.exp;
+        document.getElementById("pointDisplay").innerHTML=player.eStats;
         document.getElementById("inventory").innerHTML=inventory;
         document.getElementById("stats").classList.remove('hide');
         document.getElementById("inventoryarea").classList.remove('hide');
@@ -409,6 +421,16 @@ function addStr(){
     }
 }
 
+function addStre(){
+    if(player.eStats > 0) {
+        player.baseStr = player.baseStr + 1;
+        player.eStats = player.eStats - 1;
+        document.getElementById("strdisplay").innerHTML=player.baseStr;
+        document.getElementById("pointDisplay").innerHTML=player.ePoints;
+    }
+}
+
+
 function addDex(){
     if(player.exp >= player.baseDex) {
         player.exp = player.exp - player.baseDex;
@@ -419,6 +441,15 @@ function addDex(){
     }
 }
 
+function addDext(){
+    if(player.eStats > 0) {
+        player.baseStr = player.baseStr + 1;
+        player.eStats = player.eStats - 1;
+        document.getElementById("strdisplay").innerHTML=player.baseDex;
+        document.getElementById("pointDisplay").innerHTML=player.ePoints;
+    }
+}
+
 function addSta(){
     if(player.exp >= player.baseSta) {
         player.exp = player.exp - player.baseSta;
@@ -426,8 +457,17 @@ function addSta(){
         player.health = player.baseSta*10;
         document.getElementById("stadisplay").innerHTML=player.baseSta;
         document.getElementById("healthdisplay").innerHTML=player.health;
-        document.getElementById("expdisplay").innerHTML=player.exp;
 
+    }
+}
+
+function addStam(){
+    if(player.eStats > 0) {
+        player.baseStr = player.baseSta + 1;
+        player.health = player.baseSta * 10;
+        player.eStats = player.eStats - 1;
+        document.getElementById("strdisplay").innerHTML=player.baseDex;
+        document.getElementById("pointDisplay").innerHTML=player.ePoints;
     }
 }
 
@@ -505,11 +545,10 @@ function equip(){
         player.weapon = fInventory[x].name;
         document.getElementById("armor").innerHTML=("Armor: You currently have a " + fInventory[x].name + " equipped.");
         player.defense = fInventory[x].defense;
-    } else if (fInventory[x].type == "consumable" && fInventory[x].id = hPotion) {
+    } else if (fInventory[x].type == "consumable" && fInventory[x].id == "hPotion") {
         useHPotion();
         this.classList.add('hide')
     }
-
 } 
 
 function useHPotion(){
@@ -531,5 +570,22 @@ function useHPotion(){
         }
         document.getElementById("healthdisplay").innerHTML=player.health;
         document.getElementById("inventory").innerHTML=inventory;
+    }
+}
+
+//Experimental functions
+
+//level ups
+
+function levelUpCheck() {
+    oLevel = player.level;
+    pLevel = oLevel.toString();
+    expCheck = levelChart[pLevel];
+    
+    if (player.exp >= expCheck) {
+        player.level = player.level + 1;
+        player.eStats = player.eStats + 3;
+        document.getElementById("pointDisplay").innerHTML=player.eStats;
+        $('#playarea').load(events.levelU);
     }
 }
