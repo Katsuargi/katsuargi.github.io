@@ -57,7 +57,7 @@ var player = {
     armor: " Clothes",
     weaponDam: 0,
     defense: 0,
-    exp: 0,
+    exp: 10,
     level: 1,
     eStats: 0,
 }
@@ -123,6 +123,7 @@ var events = {
     playerDead: "events.html #dead",
     victory: "events.html #victory",
     equip: "events.html #equip_screen",
+    levelUp: "events.html #level_up",
 }
 
 var areaToCord = "0.0";
@@ -168,6 +169,7 @@ function storeTest() {
         document.getElementById("moneydisplay").innerHTML=player.money;
         document.getElementById("expdisplay").innerHTML=player.exp;
         document.getElementById("pointDisplay").innerHTML=player.eStats;
+        document.getElementById("toLevel").innerHTML=levelChart["1"];
         document.getElementById("inventory").innerHTML=inventory;
         document.getElementById("stats").classList.remove('hide');
         document.getElementById("inventoryarea").classList.remove('hide');
@@ -315,6 +317,9 @@ function west() {
 
 function goBack() {
     $('#playarea').load(locations[areaToCord]);
+    if (player.exp < levelChart[player.level] && player.eStats == 0){
+        document.getElementById("level-button").classList.add('hide');
+    }
 }
 
 //Battle functions.
@@ -376,6 +381,9 @@ function fight(){
          player.money = player.money + enemyName.money;
          document.getElementById("moneydisplay").innerHTML=player.money;
          document.getElementById("expdisplay").innerHTML=player.exp;
+         if (player.exp >= levelChart[player.level]){
+            document.getElementById("level-button").classList.remove('hide');
+         }
          $('#playarea').load(events.victory);
     }
 }
@@ -410,64 +418,32 @@ function princessComplete(){
 
 
 //Level functions.
-
-function addStr(){
-    if(player.exp >= player.baseStr) {
-        player.exp = player.exp - player.baseStr;
-        player.baseStr = player.baseStr + 1;
-        document.getElementById("strdisplay").innerHTML=player.baseStr;
-        document.getElementById("expdisplay").innerHTML=player.exp;
-
-    }
-}
-
 function addStre(){
     if(player.eStats > 0) {
         player.baseStr = player.baseStr + 1;
         player.eStats = player.eStats - 1;
         document.getElementById("strdisplay").innerHTML=player.baseStr;
-        document.getElementById("pointDisplay").innerHTML=player.ePoints;
-    }
-}
-
-
-function addDex(){
-    if(player.exp >= player.baseDex) {
-        player.exp = player.exp - player.baseDex;
-        player.baseDex = player.baseDex + 1;
-        document.getElementById("dexdisplay").innerHTML=player.baseDex;
-        document.getElementById("expdisplay").innerHTML=player.exp;
-
+        document.getElementById("pointDisplay").innerHTML=player.eStats;
     }
 }
 
 function addDext(){
     if(player.eStats > 0) {
-        player.baseStr = player.baseStr + 1;
+        player.baseDex = player.baseDex + 1;
         player.eStats = player.eStats - 1;
-        document.getElementById("strdisplay").innerHTML=player.baseDex;
-        document.getElementById("pointDisplay").innerHTML=player.ePoints;
-    }
-}
-
-function addSta(){
-    if(player.exp >= player.baseSta) {
-        player.exp = player.exp - player.baseSta;
-        player.baseSta = player.baseSta + 1;
-        player.health = player.baseSta*10;
-        document.getElementById("stadisplay").innerHTML=player.baseSta;
-        document.getElementById("healthdisplay").innerHTML=player.health;
-
+        document.getElementById("dexdisplay").innerHTML=player.baseDex;
+        document.getElementById("pointDisplay").innerHTML=player.eStats;
     }
 }
 
 function addStam(){
     if(player.eStats > 0) {
-        player.baseStr = player.baseSta + 1;
+        player.baseSta = player.baseSta + 1;
         player.health = player.baseSta * 10;
         player.eStats = player.eStats - 1;
-        document.getElementById("strdisplay").innerHTML=player.baseDex;
-        document.getElementById("pointDisplay").innerHTML=player.ePoints;
+        document.getElementById("stadisplay").innerHTML=player.baseSta;
+        document.getElementById("pointDisplay").innerHTML=player.eStats;
+        document.getElementById("healthdisplay").innerHTML=player.health;
     }
 }
 
@@ -586,6 +562,9 @@ function levelUpCheck() {
         player.level = player.level + 1;
         player.eStats = player.eStats + 3;
         document.getElementById("pointDisplay").innerHTML=player.eStats;
-        $('#playarea').load(events.levelU);
+        document.getElementById("toLevel").innerHTML=levelChart[player.level];
+        $('#playarea').load(events.levelUp);
+    } else if (player.eStats > 0) {
+        $('#playarea').load(events.levelUp);
     }
 }

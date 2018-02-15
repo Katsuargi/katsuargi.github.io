@@ -25,13 +25,13 @@
 					<h3>Health: <span id="healthdisplay"></span><br>
 					<hr>
 
-					Strength: <span id="strdisplay"></span><button onclick="addStr()">+</button><br>
-					Dexterity: <span id="dexdisplay"></span><button onclick="addDex()">+</button><br>
-					Stamina: <span id="stadisplay"></span><button onclick="addSta()">+</button><br>
+					Strength: <span id="strdisplay"></span><br>
+					Dexterity: <span id="dexdisplay"></span><br>
+					Stamina: <span id="stadisplay"></span><br>
 					</br>
 					<hr>
 					Money: <span id="moneydisplay"></span></br>
-					EXP: <span id="expdisplay"></span></br>
+					EXP: <span id="expdisplay"></span>/<span id="toLevel"></span></br>
 					Stat Points: <span id="pointDisplay"></span></br></h3>
 					<hr>
 				</div>
@@ -72,6 +72,7 @@
 				<span id="princess-logs"></span><br><br>
 				<span id="combat-logs"></span><br>
 				<button id="equip" onclick="equipment()">Equipment</button>
+				<button id="level-button" onclick="levelUpCheck()" class="hide">Level Up</button>
 			</div>
 		</div>
 		
