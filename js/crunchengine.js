@@ -296,33 +296,19 @@ function simpleCrunch() {
 	for (var i = 0; i <= 8; i++) {
  		tCell[i] = document.createElement("td");
 	}
-	var tCellText1 = document.createTextNode("Parts1");
-	var tCellText2 = document.createTextNode("Eff");
-	var tCellText3 = document.createTextNode("Effect");
-	var tCellText4 = document.createTextNode("Weight");
-	var tCellText5 = document.createTextNode("SR");
-	var tCellText6 = document.createTextNode("Officers");
-	var tCellText7 = document.createTextNode("Enlisted");
-	var tCellText8 = document.createTextNode("Technicians");
-	var tCellText9 = document.createTextNode("Power Cost");
-	tCell[0].appendChild(tCellText1);
-    tCell[1].appendChild(tCellText2);
-    tCell[2].appendChild(tCellText3);
-    tCell[3].appendChild(tCellText4);
-    tCell[4].appendChild(tCellText5);
-    tCell[5].appendChild(tCellText6);
-    tCell[6].appendChild(tCellText7);
-    tCell[7].appendChild(tCellText8);
-    tCell[8].appendChild(tCellText9);
-    tRow.appendChild(tCell[0]);
-    tRow.appendChild(tCell[1]);
-    tRow.appendChild(tCell[2]);
-    tRow.appendChild(tCell[3]);
-    tRow.appendChild(tCell[4]);
-    tRow.appendChild(tCell[5]);
-    tRow.appendChild(tCell[6]);
-    tRow.appendChild(tCell[7]);
-    tRow.appendChild(tCell[8]);
+	tCellText[0] = document.createTextNode("Parts1");
+	tCellText[1] = document.createTextNode("Eff");
+	tCellText[2] = document.createTextNode("Effect");
+	tCellText[3] = document.createTextNode("Weight");
+	tCellText[4] = document.createTextNode("SR");
+	tCellText[5] = document.createTextNode("Officers");
+	tCellText[6] = document.createTextNode("Enlisted");
+	tCellText[7] = document.createTextNode("Technicians");
+	tCellText[8] = document.createTextNode("Power Cost");
+	for (var i = 0; i <= 8; i++) {
+ 		tCell[i].appendChild(tCellText[i]);
+ 		tRow.appendChild(tCell[i]);
+	}
     tb.appendChild(tRow);
     t.appendChild(tb);
     document.getElementById("display-area").appendChild(t);
@@ -335,36 +321,23 @@ function simpleCrunch() {
 			
 				var row = document.createElement("tr");
 				var cell = [];
+				var partValues = [];
 				for (var i = 0; i <= 8; i++) {
  					cell[i] = document.createElement("td");
 				}
-			    var tParts1 = document.createTextNode(x);
-			    var eff = document.createTextNode(partEff);
-			    var tEffect = document.createTextNode(partTotalEffect);
-			    var tWeight = document.createTextNode(partTotalWeight);
-			    var tSr = document.createTextNode(partSrTotal);
-			    var tO = document.createTextNode(oTotal);
-			    var tE = document.createTextNode(eTotal);
-			    var tT = document.createTextNode(tTotal);
-			    var tP = document.createTextNode(partTotalPower);
-			    cell[0].appendChild(tParts1);
-			    cell[1].appendChild(eff);
-			    cell[2].appendChild(tEffect);
-			    cell[3].appendChild(tWeight);
-			    cell[4].appendChild(tSr);
-			    cell[5].appendChild(tO);
-			    cell[6].appendChild(tE);
-			    cell[7].appendChild(tT);
-			    cell[8].appendChild(tP);
-			    row.appendChild(cell[0]);
-			    row.appendChild(cell[1]);
-			    row.appendChild(cell[2]);
-			    row.appendChild(cell[3]);
-			    row.appendChild(cell[4]);
-			    row.appendChild(cell[5]);
-			    row.appendChild(cell[6]);
-			    row.appendChild(cell[7]);
-			    row.appendChild(cell[8]);
+			    partValues[0] = document.createTextNode(x);
+			    partValues[1] = document.createTextNode(partEff);
+			    partValues[2] = document.createTextNode(partTotalEffect);
+			    partValues[3] = document.createTextNode(partTotalWeight);
+			    partValues[4] = document.createTextNode(partSrTotal);
+			    partValues[5] = document.createTextNode(oTotal);
+			    partValues[6] = document.createTextNode(eTotal);
+			    partValues[7] = document.createTextNode(tTotal);
+			    partValues[8] = document.createTextNode(partTotalPower);
+			    for (var i = 0; i <= 8; i++) {
+ 					cell[i].appendChild(partValues[i]);
+ 					row.appendChild(cell[i]);
+				}
 			    tb.appendChild(row);
 			    t.appendChild(tb);
 			    document.getElementById("display-area").appendChild(t);
