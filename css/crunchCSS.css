@@ -16,6 +16,15 @@ table, th, td {
 	background-color: red;
 }
 
+#radials {
+	margin: 3px;
+	display: inline-flex;
+}
+
+.rad {
+	margin: 3px;
+}
+
 @media only screen and (min-width: 585px) {
 	.flex {
 		display: inline-flex;

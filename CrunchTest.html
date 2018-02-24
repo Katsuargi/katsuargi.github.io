@@ -74,15 +74,40 @@
 		    	<input type=number id="e1"><br>
 		    	Part Technician cost:<br>
 		    	<input type=number id="t1"><br>
-		    </form>
-		</div>
-
-			 <form>
-  				<input type="radio" name="type" id="phaser"> Phaser<br>
+		    	<input type="radio" name="type" id="phaser"> Phaser<br>
  				<input type="radio" name="type" id="torpedo"> Torpedo<br>
  				<input type="radio" name="type" id="torpedo"> Burst Launcher<br>
   				<input type="radio" name="type" id="other"> Other
-			</form> 
+		    </form>
+		   	<form class="stat-fields">
+				<h2>Part 2</h2>
+				Part base effect:<br>
+		    	<input type=number id="effect2"><br>
+		    	Part base weight:<br>
+		    	<input type=number id="weight2"><br>
+		    	Part weight per unit:<br>
+		    	<input type=number id="uWeight2"><br>
+		    	Part SR cost:<br>
+		    	<input type=number id="sr2"><br>
+		    	Part Power consumption:<br>
+		    	<input type=number id="power2"><br>
+		    	Part Scale Power:<br>
+		    	<input type=number id="sPower2"><br>
+		    	Part Power per unit:<br>
+		    	<input type=number id="uPower2"><br>
+		    	Part officer cost:<br>
+		    	<input type=number id="o2"><br>
+		    	Part enlisted cost:<br>
+		    	<input type=number id="e2"><br>
+		    	Part Technician cost:<br>
+		    	<input type=number id="t2"><br>
+		    	 <input type="radio" name="type" id="phaser2"> Phaser<br>
+ 				<input type="radio" name="type" id="torpedo2"> Torpedo<br>
+ 				<input type="radio" name="type" id="torpedo2"> Burst Launcher<br>
+  				<input type="radio" name="type" id="other2"> Other
+		    </form>
+		</div>
+
 				 <button id="test" onclick="submitValues1()">Enter stats</button>
 			<div id="display-area">
 			Only show stat values between:<br>
@@ -91,6 +116,7 @@
 			<input type=float id="high-cutOff"><br>
 			<button id="test" onclick="storeCutoff()">Submit Cutoff</button><br>
 			<button onclick="simpleCrunch()">Generate Results</button>
+			<button onclick="testOptimization()">2 part optmization test.</button>
 			</div>
 		</main>
 		<footer>
