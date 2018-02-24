@@ -237,36 +237,78 @@
 // }
 
 var userInput = {
-	cutOff: 0,
+	lowCutOff: 0,
+	highCutOff: 100,
 }
 
 function storeCutoff() {
-    userInput.cutOff = (document.getElementById("cutOff").value);
+    userInput.lowCutOff = (document.getElementById("low-cutOff").value);
+    userInput.highCutOff = (document.getElementById("high-cutOff").value);
 }
 
 var part1 = {
-	effect: 0,
-	weight: 0,
-	uWeight: 0,
-	sr: 0,
-	power: 0,
-	sPower: 0,
-	uPower: 0,
-	o: 0,
-	e: 0,
-	t: 0,
-	type: 0,
+	effect: .975,
+	weight: 8,
+	uWeight: 14,
+	sr: 0.08,
+	power: 5,
+	sPower: 2.5,
+	uPower: 1.75,
+	o: .32,
+	e: .32,
+	t: .01,
+	type: 1,
 }
 
-var maxWeight;
-var frameWeight;
+var part2 = {
+	effect: .7,
+	weight: 15,
+	uWeight: 10,
+	sr: 0.1,
+	power: 4,
+	sPower: 0.1,
+	uPower: 0.5,
+	o: .15,
+	e: .15,
+	t: 0,
+	type: 2,
+}
+
+var frame = {
+	maxWeight: 2700,
+	size: 9,
+	oMod: .825,
+	eMod: .825,
+	tMod: .775,
+	srMod: 1.1,
+}
+
+var subFrame = {
+	maxWeight: 675,
+	weight: 30,
+	cMulti: 1.14,
+	oMod: .88,
+	eMod: .78,
+	tMod: .88,
+	srMod: 1,
+}
+
 var partTotalWeight = 0;
-var shipSize = 0;
 
 function submitValues1(){
-	maxWeight = parseInt(document.getElementById("maxWeight").value);
-	frameWeight = parseInt(document.getElementById("frameWeight").value);
-	size = parseInt(document.getElementById("shipSize").value);
+	frame.size = parseInt(document.getElementById("shipSize").value);
+	frame.maxWeight = parseInt(document.getElementById("frame-max-weight").value);
+	frame.oMod = parseFloat(document.getElementById("frame-O-Mod").value);
+	frame.eMod = parseFloat(document.getElementById("frame-E-Mod").value);
+	frame.tMod = parseFloat(document.getElementById("frame-T-Mod").value);
+	frame.srMod = parseFloat(document.getElementById("frame-SR-Mod").value);
+	subFrame.maxWeight = parseInt(document.getElementById("subFrame-maxWeight").value);
+	subFrame.weight = parseInt(document.getElementById("subFrame-weight").value);
+	subFrame.cMulti = parseFloat(document.getElementById("statMulti").value);
+	subFrame.oMod = parseFloat(document.getElementById("subFrame-O-Mod").value);
+	subFrame.eMod = parseFloat(document.getElementById("subFrame-E-Mod").value);
+	subFrame.tMod = parseFloat(document.getElementById("subFrame-T-Mod").value);
+	subFrame.srMod = parseFloat(document.getElementById("subFrame-SR-Mod").value);
 	part1.effect = parseFloat(document.getElementById("effect1").value);
 	part1.weight = parseInt(document.getElementById("weight1").value);
 	part1.uWeight = parseInt(document.getElementById("uWeight1").value);
@@ -281,6 +323,8 @@ function submitValues1(){
 		part1.type = 1;
 	} else if (document.getElementById("torpedo").checked == true){
 		part1.type = 2;
+	} else if (document.getElementById("burst-launcher").checked == true){
+		part1.type = 3;
 	} else if (document.getElementById("other").checked == true) {
 		part1.type = 0;
 	}
@@ -293,7 +337,7 @@ function simpleCrunch() {
 	var tRow = document.createElement("tr");
 	var tCell=[];
 	var tCellText=[];
-	for (var i = 0; i <= 8; i++) {
+	for (var i = 0; i <= 9; i++) {
  		tCell[i] = document.createElement("td");
 	}
 	tCellText[0] = document.createTextNode("Parts1");
@@ -301,28 +345,25 @@ function simpleCrunch() {
 	tCellText[2] = document.createTextNode("Effect");
 	tCellText[3] = document.createTextNode("Weight");
 	tCellText[4] = document.createTextNode("SR");
-	tCellText[5] = document.createTextNode("Officers");
-	tCellText[6] = document.createTextNode("Enlisted");
-	tCellText[7] = document.createTextNode("Technicians");
-	tCellText[8] = document.createTextNode("Power Cost");
-	for (var i = 0; i <= 8; i++) {
+	tCellText[5] = document.createTextNode("BR");
+	tCellText[6] = document.createTextNode("Officers");
+	tCellText[7] = document.createTextNode("Enlisted");
+	tCellText[8] = document.createTextNode("Technicians");
+	tCellText[9] = document.createTextNode("Power Cost");
+	for (var i = 0; i <= 9; i++) {
  		tCell[i].appendChild(tCellText[i]);
  		tRow.appendChild(tCell[i]);
 	}
     tb.appendChild(tRow);
     t.appendChild(tb);
     document.getElementById("display-area").appendChild(t);
-    console.log(partTotalWeight);
-	console.log(maxWeight);
 
 	    function displayChart() {
-			console.log(partTotalEffect);
-			console.log(userInput.cutOff);
 			
 				var row = document.createElement("tr");
 				var cell = [];
 				var partValues = [];
-				for (var i = 0; i <= 8; i++) {
+				for (var i = 0; i <= 9; i++) {
  					cell[i] = document.createElement("td");
 				}
 			    partValues[0] = document.createTextNode(x);
@@ -330,11 +371,12 @@ function simpleCrunch() {
 			    partValues[2] = document.createTextNode(partTotalEffect);
 			    partValues[3] = document.createTextNode(partTotalWeight);
 			    partValues[4] = document.createTextNode(partSrTotal);
-			    partValues[5] = document.createTextNode(oTotal);
-			    partValues[6] = document.createTextNode(eTotal);
-			    partValues[7] = document.createTextNode(tTotal);
-			    partValues[8] = document.createTextNode(partTotalPower);
-			    for (var i = 0; i <= 8; i++) {
+			    partValues[5] = document.createTextNode(partBrTotal);
+			    partValues[6] = document.createTextNode(oTotal);
+			    partValues[7] = document.createTextNode(eTotal);
+			    partValues[8] = document.createTextNode(tTotal);
+			    partValues[9] = document.createTextNode(partTotalPower);
+			    for (var i = 0; i <= 9; i++) {
  					cell[i].appendChild(partValues[i]);
  					row.appendChild(cell[i]);
 				}
@@ -344,28 +386,34 @@ function simpleCrunch() {
 		
 		}
 
-	while (partTotalWeight < maxWeight) {
+	while (partTotalWeight < subFrame.maxWeight) {
 		x = x + 1;
 		if (part1.type == 1) {
-			partTotalEffect = part1.effect * (1+3.5*Math.log10(0.7*x+0.3)) * ((100-size) / 100) * 1.14;
+			partTotalEffect = part1.effect * (1+3.5*Math.log10(0.7*x+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti;
+			partTotalWeight = (part1.weight + (part1.uWeight * x));
 		}
 		else if (part1.type == 2) {
-			partTotalEffect = part1.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1.5 * 1.14;
+			partTotalEffect = part1.effect * (1+3.5*Math.log10(0.7*x+0.3)) * subFrame.cMulti;
+			partTotalWeight = (part1.weight + (part1.uWeight * x));
+		}
+		else if (part1.type == 3) {
+			partTotalEffect = part1.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1.5 * subFrame.cMulti;
+			partTotalWeight = (part1.weight + (part1.uWeight * x)) * 1.5;
 		}
 		else if (part1.type == 0) {
-			partTotalEffect = part1.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * 1.14;
-		} else {partTotalEffect = part1.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * 1.14;}
-
-		partTotalPower = (part1.power + (part1.sPower * size) + (part1.uPower * x));
+			partTotalEffect = part1.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;
+			partTotalWeight = (part1.weight + (part1.uWeight * x));
+		} else {partTotalEffect = part1.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;}
+		partTotalPower = (part1.power + (part1.sPower * frame.size) + (part1.uPower * x));
 		partTotalWeight = (part1.weight + (part1.uWeight * x));
 		partEff = (partTotalEffect / partTotalWeight);
-		partSrTotal = part1.sr * x;
+		partSrTotal = part1.sr * partTotalWeight *  (frame.srMod*subFrame.srMod);
+		partBrTotal = partTotalWeight / 10;
 		partPowerTotal = part1.uPower * x + part1.power;
-		oTotal = part1.o * x;
-		eTotal = part1.e * x;
-		tTotal = part1.t * x;
-		console.log(partTotalPower);
-		if (partTotalEffect >= userInput.cutOff) {
+		oTotal = part1.o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod);
+		eTotal = part1.e * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.eMod * subFrame.eMod);
+		tTotal = part1.t * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.tMod * subFrame.tMod);
+		if (partTotalEffect >= userInput.lowCutOff && userInput.highCutOff >= partTotalEffect) {
 			displayChart();
 		}
 	}

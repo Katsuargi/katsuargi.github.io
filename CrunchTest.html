@@ -16,14 +16,45 @@
 					<a href="#">Link 3</a>
 				</div>
 			</div>  -->
-			<form>
-		    	Max Frame weight:<br>
-		    	<input type=number id="maxWeight"><br>
-		    	Weight of the Frame itself:<br>
-		    	<input type=number id="frameWeight"><br>
-		    	Ship size factor:<br>
+			<div class="flex">
+			<div class="flex2">
+			<form class="stat-fields">
+				<h2>Frame</h2>
+				Frame max weight:<br>
+		    	<input type=number id="frame-max-weight"><br>
+		    	Frame size factor:<br>
 		    	<input type=number id="shipSize"><br>
-		    	Part base effect:<br>
+		    	Frame O Mod:<br>
+		    	<input type=number id="frame-O-Mod"><br>
+		    	Frame E Mod:<br>
+		    	<input type=number id="frame-E-Mod"><br>
+		    	Frame T Mod:<br>
+		    	<input type=number id="frame-T-Mod"><br>
+		    	Frame SR Mod:<br>
+		    	<input type=number id="frame-SR-Mod"><br>
+			</form>
+
+			<form class="stat-fields">
+				<h2>Sub Frame</h2>
+				Weight of the Sub frame:<br>
+		    	<input type=number id="subFrame-weight"><br>
+		    	Max Sub Frame weight:<br>
+		    	<input type=number id="subFrame-maxWeight"><br>
+		    	Sub frame Multiplier for stat:<br>
+		    	<input type=number id="statMulti"><br>
+		    	SubFrame O Mod:<br>
+		    	<input type=number id="subFrame-O-Mod"><br>
+		    	SubFrame E Mod:<br>
+		    	<input type=number id="subFrame-E-Mod"><br>
+		    	SubFrame T Mod:<br>
+		    	<input type=number id="subFrame-T-Mod"><br>
+		    	SubFrame SR Mod:<br>
+		    	<input type=number id="subFrame-SR-Mod"><br>
+		    </form>
+			</div>
+		    <form class="stat-fields">
+				<h2>Part 1</h2>
+				Part base effect:<br>
 		    	<input type=number id="effect1"><br>
 		    	Part base weight:<br>
 		    	<input type=number id="weight1"><br>
@@ -43,20 +74,23 @@
 		    	<input type=number id="e1"><br>
 		    	Part Technician cost:<br>
 		    	<input type=number id="t1"><br>
-			</form>
+		    </form>
+		</div>
 
 			 <form>
   				<input type="radio" name="type" id="phaser"> Phaser<br>
  				<input type="radio" name="type" id="torpedo"> Torpedo<br>
+ 				<input type="radio" name="type" id="torpedo"> Burst Launcher<br>
   				<input type="radio" name="type" id="other"> Other
 			</form> 
 				 <button id="test" onclick="submitValues1()">Enter stats</button>
 			<div id="display-area">
-			<span id="stat-line">This is where the statline will go.</span>
-			Stat cutoff:<br>
-			<input type=number id="cutOff"><br>
+			Only show stat values between:<br>
+			<input type=number id="low-cutOff"><br>
+			And:<br>
+			<input type=float id="high-cutOff"><br>
 			<button id="test" onclick="storeCutoff()">Submit Cutoff</button><br>
-			<button onclick="simpleCrunch()">Better organization?</button>
+			<button onclick="simpleCrunch()">Generate Results</button>
 			</div>
 		</main>
 		<footer>
