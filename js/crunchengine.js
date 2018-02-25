@@ -473,7 +473,7 @@ function testOptimization() {
 			partTotalWeight2 = (part2.weight + (part2.uWeight * x));
 		} else {partTotalEffect2 = part2.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;}
 		partTotalPower2 = (part2.power + (part2.sPower * frame.size) + (part2.uPower * x));
-		partEff2 = (partTotalEffect / partTotalWeight);
+		partEff2 = (partTotalEffect2 / partTotalWeight2);
 		partSrTotal2 = part2.sr * partTotalWeight *  (frame.srMod*subFrame.srMod);
 		partBrTotal2 = partTotalWeight / 10;
 		oTotal2 = part2.o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod);
@@ -492,6 +492,7 @@ function testOptimization() {
 
 	partTotalWeight2 = 0;
 	x = 0;
+	part2Eff = 1;
 	var workingParts = [];
 	console.log(effectArray1);
 	console.log(effectArray2);
@@ -512,27 +513,31 @@ function testOptimization() {
 			return effect >= (userInput.lowCutOff - part1Effect)
 		}
 		y = (effectArray2.findIndex(getValue));
-		while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff) {
-			part2Effect = effectArray2[y];
-			part2Weight = weightArray2[y];
-			part2Power = powerArray2[y];
-			part2Eff = effArray2[y];
-			part2Sr = srArray2[y];
-			part2Br = brArray2[y];
-			part2O = oArray2[y];
-			part2E = eArray2[y];
-			part2T = tArray2[y];
-			combinedEffect = part1Effect + part2Effect;
-			combinedWeight = part1Weight + part2Weight;
-			combinedPower = part1Power + part2Power;
-			combinedEff = combinedEffect / combinedWeight;
-			combinedSr = part1Sr + part2Sr;
-			combinedBr = combinedWeight / 10;
-			combinedO = part1O + part2O;
-			combinedE = part1E + part2E;
-			combinedT = part1T + part2T;
-			displayChart2();
-			y = y+1;
+		if (part1Effect < userInput.highCutOff){
+			while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff && part2Eff > part1Eff*10) {
+				console.log(part2Eff, part1Eff);
+				part2Effect = effectArray2[y];
+				part2Weight = weightArray2[y];
+				part2Power = powerArray2[y];
+				part2Eff = effArray2[y];
+				part2Sr = srArray2[y];
+				part2Br = brArray2[y];
+				part2O = oArray2[y];
+				part2E = eArray2[y];
+				part2T = tArray2[y];
+				combinedEffect = part1Effect + part2Effect;
+				combinedWeight = part1Weight + part2Weight;
+				combinedPower = part1Power + part2Power;
+				combinedEff = combinedEffect / combinedWeight;
+				combinedSr = part1Sr + part2Sr;
+				combinedBr = combinedWeight / 10;
+				combinedO = part1O + part2O;
+				combinedE = part1E + part2E;
+				combinedT = part1T + part2T;
+				displayChart2();
+				y = y+1;
+			}
+			part2Eff = 1;
 		}
 	}
 }
