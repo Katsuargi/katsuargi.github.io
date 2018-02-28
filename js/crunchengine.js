@@ -274,6 +274,20 @@ var part2 = {
 	type: 2,
 }
 
+var part3 = {
+	effect: .52,
+	weight: 4,
+	uWeight: 6,
+	sr: 0.065,
+	power: 3,
+	sPower: 3,
+	uPower: 2,
+	o: .175,
+	e: .19,
+	t: .02,
+	type: 1,
+}
+
 var frame = {
 	maxWeight: 2700,
 	size: 9,
@@ -295,6 +309,7 @@ var subFrame = {
 
 var partTotalWeight = 0;
 var partTotalWeight2 = 0;
+var partTotalWeight3 = 0;
 
 function submitValues1(){
 	frame.size = parseInt(document.getElementById("shipSize").value);
@@ -366,20 +381,30 @@ function testOptimization() {
 	var oArray2 = [];
 	var eArray2 = [];
 	var tArray2 = [];
-	for (var i = 0; i <= 9; i++) {
+	var effectArray3 = [];
+	var weightArray3 = [];
+	var powerArray3 = [];
+	var effArray3 = [];
+	var srArray3 = [];
+	var brArray3 = [];
+	var oArray3 = [];
+	var eArray3 = [];
+	var tArray3 = [];
+	for (var i = 0; i <= 10; i++) {
  		tCell[i] = document.createElement("td");
 	}
-	tCellText[0] = document.createTextNode("Parts1");
-	tCellText[1] = document.createTextNode("Parts2");
-	tCellText[2] = document.createTextNode("Effect");
-	tCellText[3] = document.createTextNode("Weight");
-	tCellText[4] = document.createTextNode("SR");
-	tCellText[5] = document.createTextNode("BR");
-	tCellText[6] = document.createTextNode("Officers");
-	tCellText[7] = document.createTextNode("Enlisted");
-	tCellText[8] = document.createTextNode("Technicians");
-	tCellText[9] = document.createTextNode("Power Cost");
-	for (var i = 0; i <= 9; i++) {
+	tCellText[0] = document.createTextNode("ID");
+	tCellText[1] = document.createTextNode("Parts1");
+	tCellText[2] = document.createTextNode("Parts2");
+	tCellText[3] = document.createTextNode("Effect");
+	tCellText[4] = document.createTextNode("Weight");
+	tCellText[5] = document.createTextNode("SR");
+	tCellText[6] = document.createTextNode("BR");
+	tCellText[7] = document.createTextNode("Officers");
+	tCellText[8] = document.createTextNode("Enlisted");
+	tCellText[9] = document.createTextNode("Technicians");
+	tCellText[10] = document.createTextNode("Power Cost");
+	for (var i = 0; i <= 10; i++) {
  		tCell[i].appendChild(tCellText[i]);
  		tRow.appendChild(tCell[i]);
 	}
@@ -392,20 +417,21 @@ function testOptimization() {
 		var row = document.createElement("tr");
 		var cell = [];
 		var partValues = [];
-		for (var i = 0; i <= 9; i++) {
+		for (var i = 0; i <= 10; i++) {
 			cell[i] = document.createElement("td");
 		}
-	    partValues[0] = document.createTextNode(x - 1);
-	    partValues[1] = document.createTextNode(y);
-	    partValues[2] = document.createTextNode(combinedEffect);
-	    partValues[3] = document.createTextNode(combinedWeight);
-	    partValues[4] = document.createTextNode(combinedSr);
-	    partValues[5] = document.createTextNode(combinedBr);
-	    partValues[6] = document.createTextNode(combinedO);
-	    partValues[7] = document.createTextNode(combinedE);
-	    partValues[8] = document.createTextNode(combinedT);
-	    partValues[9] = document.createTextNode(combinedPower);
-	    for (var i = 0; i <= 9; i++) {
+		partValues[0]= document.createTextNode(partName);
+	    partValues[1] = document.createTextNode(x - 1);
+	    partValues[2] = document.createTextNode(y);
+	    partValues[3] = document.createTextNode(combinedEffect);
+	    partValues[4] = document.createTextNode(combinedWeight);
+	    partValues[5] = document.createTextNode(combinedSr);
+	    partValues[6] = document.createTextNode(combinedBr);
+	    partValues[7] = document.createTextNode(combinedO);
+	    partValues[8] = document.createTextNode(combinedE);
+	    partValues[9] = document.createTextNode(combinedT);
+	    partValues[10] = document.createTextNode(combinedPower);
+	    for (var i = 0; i <= 10; i++) {
 			cell[i].appendChild(partValues[i]);
 			row.appendChild(cell[i]);
 		}
@@ -490,31 +516,107 @@ function testOptimization() {
 		tArray2[x] = tTotal2;
 	}
 
-	partTotalWeight2 = 0;
 	x = 0;
+
+	while (partTotalWeight3 < subFrame.maxWeight) {
+		x = x + 1;
+		if (part3.type == 1) {
+			partTotalEffect3 = part3.effect * (1+3.5*Math.log10(0.7*x+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti;
+			partTotalWeight3 = (part3.weight + (part3.uWeight * x));
+		}
+		else if (part3.type == 2) {
+			partTotalEffect3 = part3.effect * (1+3.5*Math.log10(0.7*x+0.3)) * subFrame.cMulti;
+			partTotalWeight3 = (part3.weight + (part3.uWeight * x));
+		}
+		else if (part3.type == 3) {
+			partTotalEffect3 = part3.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1.5 * subFrame.cMulti;
+			partTotalWeight3 = (part3.weight + (part3.uWeight * x)) * 1.5;
+		}
+		else if (part3.type == 0) {
+			partTotalEffect3 = part3.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;
+			partTotalWeight3 = (part3.weight + (part3.uWeight * x));
+		} else {partTotalEffect3 = part3.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;}
+		partTotalPower3 = (part3.power + (part3.sPower * frame.size) + (part3.uPower * x));
+		partEff3 = (partTotalEffect3 / partTotalWeight3);
+		partSrTotal3 = part3.sr * partTotalWeight3 *  (frame.srMod*subFrame.srMod);
+		partBrTotal3 = partTotalWeight3 / 10;
+		oTotal3 = part3.o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod);
+		eTotal3 = part3.e * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.eMod * subFrame.eMod);
+		tTotal3 = part3.t * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.tMod * subFrame.tMod);
+		effectArray3[x] = partTotalEffect3;
+		weightArray3[x] = partTotalWeight3;
+		powerArray3[x] = partTotalPower3;
+		effArray3[x] = partEff3;
+		srArray3[x] = partSrTotal3;
+		brArray3[x] = partBrTotal3;
+		oArray3[x] = oTotal3;
+		eArray3[x] = eTotal3;
+		tArray3[x] = tTotal3;
+	}
+	
+	x = 0;
+	partTotalWeight = 0;
+	partTotalWeight2 = 0;
+	partTotalWeight3 = 0;
 	part2Eff = 1;
+	var partId = 1;
+	var partName;
 	var workingParts = [];
 	console.log(effectArray1);
 	console.log(effectArray2);
-	while (x < effectArray1.length) {
-		part1Effect = effectArray1[x];
-		part1Weight = weightArray1[x];
-		part1Power = powerArray1[x];
-		part1Eff = effArray1[x];
-		part1Sr = srArray1[x];
-		part1Br = brArray1[x];
-		part1O = oArray1[x];
-		part1E = eArray1[x];
-		part1T = tArray1[x];
+	console.log(effectArray3);
+	while ((x < effectArray1.length && partId < 2) || (x < effectArray3.length && partId < 2)) {
+		if (partId === 1){
+			part1Effect = effectArray1[x];
+			part1Weight = weightArray1[x];
+			part1Power = powerArray1[x];
+			part1Eff = effArray1[x];
+			part1Sr = srArray1[x];
+			part1Br = brArray1[x];
+			part1O = oArray1[x];
+			part1E = eArray1[x];
+			part1T = tArray1[x];
+			partName = 1;
+			console.log(partId);
+		}
+		console.log(effArray1);
+		console.log(effArray3);
+		if (partId === 2){
+			if (part1.type === part3.type){
+				part3Effect = effectArray3[x];
+				part3Weight = weightArray3[x];
+				part3Power = powerArray3[x];
+				part3Eff = effArray3[x];
+				part3Sr = srArray3[x];
+				part3Br = brArray3[x];
+				part3O = oArray3[x];
+				part3E = eArray3[x];
+				part3T = tArray3[x];
+				part1Effect = part3Effect;
+				part1Weight = part3Weight;
+				part1Power = part3Power;
+				part1Eff = part3Eff;
+				part1Sr = part3Sr;
+				part1Br = part3Br;
+				part1O = part3O;
+				part1E = part3E;
+				part1T = part3T;
+				partName = 2;
+				console.log("Part 3 better is true");
+			}
+		}
 		combinedWeight = 0;
 		combinedEffect = 0;
 		x = x + 1;
+		console.log(x);
 		function getValue(effect){
 			return effect >= (userInput.lowCutOff - part1Effect)
 		}
+		console.log(x);
+		//Note: .02 is a sane breakpoint for phasers and torpedos. Other types will require an additional || type + sane breakpoint condition
 		y = (effectArray2.findIndex(getValue));
 		if (part1Effect < userInput.highCutOff){
-			while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff && part2Eff > part1Eff*10) {
+			while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff && part2Eff > .02) {
 				console.log(part2Eff, part1Eff);
 				part2Effect = effectArray2[y];
 				part2Weight = weightArray2[y];
@@ -538,6 +640,10 @@ function testOptimization() {
 				y = y+1;
 			}
 			part2Eff = 1;
+		}
+		if (x < effectArray1.length && partId < 2){
+			x = 0;
+			partId = partId + 1;
 		}
 	}
 }
