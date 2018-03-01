@@ -261,6 +261,20 @@ var part1 = {
 }
 
 var part2 = {
+	effect: .8,
+	weight: 5,
+	uWeight: 10,
+	sr: 0.04,
+	power: 3,
+	sPower: 1.5,
+	uPower: 1,
+	o: .15,
+	e: .15,
+	t: .001,
+	type: 2,
+}
+
+var part3 = {
 	effect: .7,
 	weight: 15,
 	uWeight: 10,
@@ -271,8 +285,12 @@ var part2 = {
 	o: .15,
 	e: .15,
 	t: 0,
-	type: 2,
+	type: 3,
 }
+
+var partArray = [part1, part2, part3];
+var phaserArray = [];
+var torpedoArray = [];
 
 var frame = {
 	maxWeight: 2700,
@@ -341,7 +359,7 @@ function submitValues1(){
 	}
 }
 
-function testOptimization() {
+function testOptimization2() {
 	x = 0;
 	var t = document.createElement("table");
 	var tb = document.createElement("tbody");
@@ -624,4 +642,200 @@ function simpleCrunch() {
 		}
 	}
 	partTotalWeight = 0;
+}
+
+function testOptimization() {
+	x = 0;
+	for (i=0; i < partArray.length; i++){
+		if (partArray[i].type === 1 || partArray[i].type === 2){
+			phaserArray.push(partArray[i])
+		}
+		if (partArray[i].type === 3){
+			torpedoArray.push(partArray[i])
+		}
+		console.log(phaserArray);
+		console.log(torpedoArray);
+	}
+	var t = document.createElement("table");
+	var tb = document.createElement("tbody");
+	var tRow = document.createElement("tr");
+	var tCell=[];
+	var tCellText=[];
+	var effectArray1 = [];
+	var weightArray1 = [];
+	var powerArray1 = [];
+	var effArray1 = [];
+	var srArray1 = [];
+	var brArray1 = [];
+	var oArray1 = [];
+	var eArray1 = [];
+	var tArray1 = [];
+	var effectArray2 = [];
+	var weightArray2 = [];
+	var powerArray2 = [];
+	var effArray2 = [];
+	var srArray2 = [];
+	var brArray2 = [];
+	var oArray2 = [];
+	var eArray2 = [];
+	var tArray2 = [];
+	var y = 0;
+	var z = 0;
+	for (var i = 0; i <= 9; i++) {
+ 		tCell[i] = document.createElement("td");
+	}
+	tCellText[0] = document.createTextNode("Parts1");
+	tCellText[1] = document.createTextNode("Parts2");
+	tCellText[2] = document.createTextNode("Effect");
+	tCellText[3] = document.createTextNode("Weight");
+	tCellText[4] = document.createTextNode("SR");
+	tCellText[5] = document.createTextNode("BR");
+	tCellText[6] = document.createTextNode("Officers");
+	tCellText[7] = document.createTextNode("Enlisted");
+	tCellText[8] = document.createTextNode("Technicians");
+	tCellText[9] = document.createTextNode("Power Cost");
+	for (var i = 0; i <= 9; i++) {
+ 		tCell[i].appendChild(tCellText[i]);
+ 		tRow.appendChild(tCell[i]);
+	}
+    tb.appendChild(tRow);
+    t.appendChild(tb);
+    document.getElementById("display-area").appendChild(t);
+
+	function displayChart2() {
+			
+		var row = document.createElement("tr");
+		var cell = [];
+		var partValues = [];
+		for (var i = 0; i <= 9; i++) {
+			cell[i] = document.createElement("td");
+		}
+	    partValues[0] = document.createTextNode(x - 1);
+	    partValues[1] = document.createTextNode(y);
+	    partValues[2] = document.createTextNode(combinedEffect);
+	    partValues[3] = document.createTextNode(combinedWeight);
+	    partValues[4] = document.createTextNode(combinedSr);
+	    partValues[5] = document.createTextNode(combinedBr);
+	    partValues[6] = document.createTextNode(combinedO);
+	    partValues[7] = document.createTextNode(combinedE);
+	    partValues[8] = document.createTextNode(combinedT);
+	    partValues[9] = document.createTextNode(combinedPower);
+	    for (var i = 0; i <= 9; i++) {
+			cell[i].appendChild(partValues[i]);
+			row.appendChild(cell[i]);
+		}
+	    tb.appendChild(row);
+	    t.appendChild(tb);
+	    document.getElementById("display-area").appendChild(t);
+		
+	}
+
+	while (partTotalWeight < subFrame.maxWeight && y <= phaserArray.length) {
+		x = x + 1;
+		if (phaserArray[y].type == 1) {
+			partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti;
+			partTotalWeight = (phaserArray[y].weight + (phaserArray[y].uWeight * x));
+		}
+		else if (phaserArray[y].type == 2) {
+			partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * subFrame.cMulti;
+			partTotalWeight = (phaserArray[y].weight + (phaserArray[y].uWeight * x));
+		}
+		else if (phaserArray[y].type == 0) {
+			partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;
+			partTotalWeight = (phaserArray[y].weight + (phaserArray[y].uWeight * x));
+		} else {partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;}
+		partTotalPower = (phaserArray[y].power + (phaserArray[y].sPower * frame.size) + (phaserArray[y].uPower * x));
+		partEff = (partTotalEffect / partTotalWeight);
+		partSrTotal = phaserArray[y].sr * partTotalWeight *  (frame.srMod*subFrame.srMod);
+		partBrTotal = partTotalWeight / 10;
+		oTotal = phaserArray[y].o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod);
+		eTotal = phaserArray[y].e * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.eMod * subFrame.eMod);
+		tTotal = phaserArray[y].t * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.tMod * subFrame.tMod);
+		effectArray1[x] = partTotalEffect;
+		weightArray1[x] = partTotalWeight;
+		powerArray1[x] = partTotalPower;
+		effArray1[x] = partEff;
+		srArray1[x] = partSrTotal;
+		brArray1[x] = partBrTotal;
+		oArray1[x] = oTotal;
+		eArray1[x] = eTotal;
+		tArray1[x] = tTotal;
+	}
+	y = y+1;
+	x = 0;
+	partTotalWeight = 0;
+
+	while (partTotalWeight2 < subFrame.maxWeight && z <= torpedoArray.length) {
+		x = x + 1;
+		if (torpedoArray[z].type == 3) {
+			partTotalEffect2 = part2.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1.5 * subFrame.cMulti;
+			partTotalWeight2 = (part2.weight + (part2.uWeight * x)) * 1.5;
+		}
+		else if (part2.type == 0) {
+			partTotalEffect2 = part2.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;
+			partTotalWeight2 = (part2.weight + (part2.uWeight * x));
+		} else {partTotalEffect2 = part2.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;}
+		partTotalPower2 = (part2.power + (part2.sPower * frame.size) + (part2.uPower * x));
+		partEff2 = (partTotalEffect / partTotalWeight);
+		partSrTotal2 = part2.sr * partTotalWeight *  (frame.srMod*subFrame.srMod);
+		partBrTotal2 = partTotalWeight / 10;
+		oTotal2 = part2.o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod);
+		eTotal2 = part2.e * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.eMod * subFrame.eMod);
+		tTotal2 = part2.t * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.tMod * subFrame.tMod);
+		effectArray2[x] = partTotalEffect2;
+		weightArray2[x] = partTotalWeight2;
+		powerArray2[x] = partTotalPower2;
+		effArray2[x] = partEff2;
+		srArray2[x] = partSrTotal2;
+		brArray2[x] = partBrTotal2;
+		oArray2[x] = oTotal2;
+		eArray2[x] = eTotal2;
+		tArray2[x] = tTotal2;
+	}
+
+	partTotalWeight2 = 0;
+	x = 0;
+	var workingParts = [];
+	console.log(effectArray1);
+	console.log(effectArray2);
+	while (x < effectArray1.length) {
+		part1Effect = effectArray1[x];
+		part1Weight = weightArray1[x];
+		part1Power = powerArray1[x];
+		part1Eff = effArray1[x];
+		part1Sr = srArray1[x];
+		part1Br = brArray1[x];
+		part1O = oArray1[x];
+		part1E = eArray1[x];
+		part1T = tArray1[x];
+		combinedWeight = 0;
+		combinedEffect = 0;
+		x = x + 1;
+		function getValue(effect){
+			return effect >= (userInput.lowCutOff - part1Effect)
+		}
+		y = (effectArray2.findIndex(getValue));
+		while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff) {
+			part2Effect = effectArray2[y];
+			part2Weight = weightArray2[y];
+			part2Power = powerArray2[y];
+			part2Eff = effArray2[y];
+			part2Sr = srArray2[y];
+			part2Br = brArray2[y];
+			part2O = oArray2[y];
+			part2E = eArray2[y];
+			part2T = tArray2[y];
+			combinedEffect = part1Effect + part2Effect;
+			combinedWeight = part1Weight + part2Weight;
+			combinedPower = part1Power + part2Power;
+			combinedEff = combinedEffect / combinedWeight;
+			combinedSr = part1Sr + part2Sr;
+			combinedBr = combinedWeight / 10;
+			combinedO = part1O + part2O;
+			combinedE = part1E + part2E;
+			combinedT = part1T + part2T;
+			displayChart2();
+			y = y+1;
+		}
+	}
 }
