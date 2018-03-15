@@ -36,7 +36,9 @@
 
 			<div class="main-body">
 				<h2 class="section-dis">Data Cruching</h2>
-				<p>Currently working on a function to crunch data from tables and turn it into useful information given parameters.</p>
+				<p>Data crunch for a forum game I play in. Ship design in game features parts with variable values, and different catagories of parts that impact the same stats. Involves complicated trade offs for cost/effect. Tool designed to eventually crunch all legal combinations of parts within a certain range using huristics to keep things sane. Has progressed from linear single part cruncher up to the current general 2x2 configuration. Can easily be rote worked for any number of catagories + parts from here. Lacks anything beyond basic huristics, however, so lacks more than basic usefulness.
+
+				Rough estimates give about 10 parts per catagory, and 8 catagories per major stat. Current huristics include limiting any individual part to 12 (parts have diminishing returns. This is a basic sanity check as manual testing has shown even outlier cases don't want more than 12 of a given part). (12^8)*(10^8) is still a really, really big number. To say nothing of huristics to actually track down the values with trade offs while weeding out combinations that are just flat inferior.</p>
 			</div>
 		</main>
 
