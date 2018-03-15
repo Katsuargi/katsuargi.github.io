@@ -646,6 +646,9 @@ function simpleCrunch() {
 
 function testOptimization() {
 	x = 0;
+	a = 0;
+	b = 0;
+	var cycles = 0;
 	for (i=0; i < partArray.length; i++){
 		if (partArray[i].type === 1 || partArray[i].type === 2){
 			phaserArray.push(partArray[i])
@@ -679,6 +682,7 @@ function testOptimization() {
 	var oArray2 = [];
 	var eArray2 = [];
 	var tArray2 = [];
+	var typeArray1 = [];
 	var y = 0;
 	var z = 0;
 	for (var i = 0; i <= 9; i++) {
@@ -710,7 +714,7 @@ function testOptimization() {
 		for (var i = 0; i <= 9; i++) {
 			cell[i] = document.createElement("td");
 		}
-	    partValues[0] = document.createTextNode(x - 1);
+	    partValues[0] = document.createTextNode(a - 1);
 	    partValues[1] = document.createTextNode(y);
 	    partValues[2] = document.createTextNode(combinedEffect);
 	    partValues[3] = document.createTextNode(combinedWeight);
@@ -730,42 +734,49 @@ function testOptimization() {
 		
 	}
 
-	while (partTotalWeight < subFrame.maxWeight && y <= phaserArray.length) {
-		x = x + 1;
-		if (phaserArray[y].type == 1) {
-			partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti;
-			partTotalWeight = (phaserArray[y].weight + (phaserArray[y].uWeight * x));
+	while (y < phaserArray.length) {
+		while (partTotalWeight < subFrame.maxWeight && x <= 12) {
+			x = x + 1;
+			a = a + 1;
+			if (phaserArray[y].type == 1) {
+				partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti;
+				partTotalWeight = (phaserArray[y].weight + (phaserArray[y].uWeight * x));
+			}
+			else if (phaserArray[y].type == 2) {
+				partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * subFrame.cMulti;
+				partTotalWeight = (phaserArray[y].weight + (phaserArray[y].uWeight * x));
+			}
+			else if (phaserArray[y].type == 0) {
+				partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;
+				partTotalWeight = (phaserArray[y].weight + (phaserArray[y].uWeight * x));
+			} else {partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;}
+			partTotalPower = (phaserArray[y].power + (phaserArray[y].sPower * frame.size) + (phaserArray[y].uPower * x));
+			partEff = (partTotalEffect / partTotalWeight);
+			partSrTotal = phaserArray[y].sr * partTotalWeight *  (frame.srMod*subFrame.srMod);
+			partBrTotal = partTotalWeight / 10;
+			oTotal = phaserArray[y].o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod);
+			eTotal = phaserArray[y].e * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.eMod * subFrame.eMod);
+			tTotal = phaserArray[y].t * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.tMod * subFrame.tMod);
+			effectArray1[a] = partTotalEffect;
+			weightArray1[a] = partTotalWeight;
+			powerArray1[a] = partTotalPower;
+			effArray1[a] = partEff;
+			srArray1[a] = partSrTotal;
+			brArray1[a] = partBrTotal;
+			oArray1[a] = oTotal;
+			eArray1[a] = eTotal;
+			tArray1[a] = tTotal;
+			typeArray1[a] = y;
 		}
-		else if (phaserArray[y].type == 2) {
-			partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * subFrame.cMulti;
-			partTotalWeight = (phaserArray[y].weight + (phaserArray[y].uWeight * x));
-		}
-		else if (phaserArray[y].type == 0) {
-			partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;
-			partTotalWeight = (phaserArray[y].weight + (phaserArray[y].uWeight * x));
-		} else {partTotalEffect = phaserArray[y].effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;}
-		partTotalPower = (phaserArray[y].power + (phaserArray[y].sPower * frame.size) + (phaserArray[y].uPower * x));
-		partEff = (partTotalEffect / partTotalWeight);
-		partSrTotal = phaserArray[y].sr * partTotalWeight *  (frame.srMod*subFrame.srMod);
-		partBrTotal = partTotalWeight / 10;
-		oTotal = phaserArray[y].o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod);
-		eTotal = phaserArray[y].e * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.eMod * subFrame.eMod);
-		tTotal = phaserArray[y].t * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.tMod * subFrame.tMod);
-		effectArray1[x] = partTotalEffect;
-		weightArray1[x] = partTotalWeight;
-		powerArray1[x] = partTotalPower;
-		effArray1[x] = partEff;
-		srArray1[x] = partSrTotal;
-		brArray1[x] = partBrTotal;
-		oArray1[x] = oTotal;
-		eArray1[x] = eTotal;
-		tArray1[x] = tTotal;
-	}
 	y = y+1;
+	partTotalWeight = 0;
 	x = 0;
+	}
+	x = 0;
+	a = 0;
 	partTotalWeight = 0;
 
-	while (partTotalWeight2 < subFrame.maxWeight && z <= torpedoArray.length) {
+	while (partTotalWeight2 < subFrame.maxWeight && z <= torpedoArray.length && x <= 12) {
 		x = x + 1;
 		if (torpedoArray[z].type == 3) {
 			partTotalEffect2 = part2.effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1.5 * subFrame.cMulti;
@@ -795,10 +806,16 @@ function testOptimization() {
 
 	partTotalWeight2 = 0;
 	x = 0;
+	a = 0;
+	b = 0;
+	var varKey = 1;
 	var workingParts = [];
 	console.log(effectArray1);
 	console.log(effectArray2);
+	console.log(typeArray1);
+	console.log(varKey);
 	while (x < effectArray1.length) {
+		if (typeArray1[x] == 1 && varKey == 1) {a = 0; varKey = varKey + 1;}
 		part1Effect = effectArray1[x];
 		part1Weight = weightArray1[x];
 		part1Power = powerArray1[x];
@@ -811,10 +828,11 @@ function testOptimization() {
 		combinedWeight = 0;
 		combinedEffect = 0;
 		x = x + 1;
+		a = a + 1;
 		function getValue(effect){
 			return effect >= (userInput.lowCutOff - part1Effect)
 		}
-		y = (effectArray2.findIndex(getValue));
+		y = 1;
 		while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff) {
 			part2Effect = effectArray2[y];
 			part2Weight = weightArray2[y];
@@ -836,6 +854,8 @@ function testOptimization() {
 			combinedT = part1T + part2T;
 			displayChart2();
 			y = y+1;
+			cycles = cycles + 1;
 		}
 	}
+	console.log(cycles);
 }
