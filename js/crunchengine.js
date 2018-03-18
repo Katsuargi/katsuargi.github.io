@@ -17,6 +17,7 @@ var part1 = {
 	e: .32,
 	t: .01,
 	type: 1,
+	name: "HPh",
 }
 
 var part2 = {
@@ -31,6 +32,7 @@ var part2 = {
 	e: .15,
 	t: .001,
 	type: 2,
+	name: "LPh",
 }
 
 var part3 = {
@@ -45,6 +47,7 @@ var part3 = {
 	e: .15,
 	t: 0,
 	type: 3,
+	name: "HTor",
 }
 
 var part4 = {
@@ -59,6 +62,7 @@ var part4 = {
 	e: .2,
 	t: 0,
 	type: 3,
+	name: "LTor",
 }
 
 var partArray = [part1, part2, part3, part4];
@@ -274,22 +278,26 @@ function testOptimization() {
 	var tArray2 = [];
 	var typeArray1 = [];
 	var typeArray2 = [];
+	var nameArray1 = [];
+	var nameArray2 = [];
 	var y = 0;
 	var z = 0;
-	for (var i = 0; i <= 9; i++) {
+	for (var i = 0; i <= 11; i++) {
  		tCell[i] = document.createElement("td");
 	}
-	tCellText[0] = document.createTextNode("Parts1");
-	tCellText[1] = document.createTextNode("Parts2");
-	tCellText[2] = document.createTextNode("Effect");
-	tCellText[3] = document.createTextNode("Weight");
-	tCellText[4] = document.createTextNode("SR");
-	tCellText[5] = document.createTextNode("BR");
-	tCellText[6] = document.createTextNode("Officers");
-	tCellText[7] = document.createTextNode("Enlisted");
-	tCellText[8] = document.createTextNode("Technicians");
-	tCellText[9] = document.createTextNode("Power Cost");
-	for (var i = 0; i <= 9; i++) {
+	tCellText[0] = document.createTextNode("PName1");
+	tCellText[1] = document.createTextNode("Parts1");
+	tCellText[2] = document.createTextNode("PName2");
+	tCellText[3] = document.createTextNode("Parts2");
+	tCellText[4] = document.createTextNode("Effect");
+	tCellText[5] = document.createTextNode("Weight");
+	tCellText[6] = document.createTextNode("SR");
+	tCellText[7] = document.createTextNode("BR");
+	tCellText[8] = document.createTextNode("Officers");
+	tCellText[9] = document.createTextNode("Enlisted");
+	tCellText[10] = document.createTextNode("Technicians");
+	tCellText[11] = document.createTextNode("Power Cost");
+	for (var i = 0; i <= 11; i++) {
  		tCell[i].appendChild(tCellText[i]);
  		tRow.appendChild(tCell[i]);
 	}
@@ -302,20 +310,22 @@ function testOptimization() {
 		var row = document.createElement("tr");
 		var cell = [];
 		var partValues = [];
-		for (var i = 0; i <= 9; i++) {
+		for (var i = 0; i <= 11; i++) {
 			cell[i] = document.createElement("td");
 		}
-	    partValues[0] = document.createTextNode(a - 1);
-	    partValues[1] = document.createTextNode(b);
-	    partValues[2] = document.createTextNode(combinedEffect);
-	    partValues[3] = document.createTextNode(combinedWeight);
-	    partValues[4] = document.createTextNode(combinedSr);
-	    partValues[5] = document.createTextNode(combinedBr);
-	    partValues[6] = document.createTextNode(combinedO);
-	    partValues[7] = document.createTextNode(combinedE);
-	    partValues[8] = document.createTextNode(combinedT);
-	    partValues[9] = document.createTextNode(combinedPower);
-	    for (var i = 0; i <= 9; i++) {
+		partValues[0] = document.createTextNode(nameArray1[x]);
+	    partValues[1] = document.createTextNode(a - 1);
+	    partValues[2] = document.createTextNode(nameArray2[y]);
+	    partValues[3] = document.createTextNode(b + 1);
+	    partValues[4] = document.createTextNode(combinedEffect);
+	    partValues[5] = document.createTextNode(combinedWeight);
+	    partValues[6] = document.createTextNode(combinedSr);
+	    partValues[7] = document.createTextNode(combinedBr);
+	    partValues[8] = document.createTextNode(combinedO);
+	    partValues[9] = document.createTextNode(combinedE);
+	    partValues[10] = document.createTextNode(combinedT);
+	    partValues[11] = document.createTextNode(combinedPower);
+	    for (var i = 0; i <= 11; i++) {
 			cell[i].appendChild(partValues[i]);
 			row.appendChild(cell[i]);
 		}
@@ -357,6 +367,7 @@ function testOptimization() {
 			oArray1[a] = oTotal;
 			eArray1[a] = eTotal;
 			tArray1[a] = tTotal;
+			nameArray1[a] = phaserArray[y].name;
 			typeArray1[a] = y;
 		}
 		y = y+1;
@@ -394,6 +405,7 @@ function testOptimization() {
 			oArray2[a] = oTotal2;
 			eArray2[a] = eTotal2;
 			tArray2[a] = tTotal2;
+			nameArray2[a] = torpedoArray[z].name;
 			typeArray2[a] = z;
 		}
 		z = z+1;
@@ -405,13 +417,13 @@ function testOptimization() {
 	x = 0;
 	a = 0;
 	b = 0;
-	var varKey = 1;
+	var varKey = 0;
 	var varKey2 = 0;
 	var workingParts = [];
 	console.log(weightArray2);
 	console.log(typeArray2);
 	while (x < effectArray1.length) {
-		if (typeArray1[x] == 1 && varKey == 1) {a = 0; varKey = varKey + 1;}
+		if (typeArray1[x] == 1 && varKey == 0) {a = 0; varKey = varKey + 1;}
 		part1Effect = effectArray1[x];
 		part1Weight = weightArray1[x];
 		part1Power = powerArray1[x];
@@ -432,7 +444,7 @@ function testOptimization() {
 			return value == varKey2;
 		}
 		y = 1;
-		while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff) {
+		while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff && y < effectArray2.length) {
 			part2Effect = effectArray2[y];
 			part2Weight = weightArray2[y];
 			part2Power = powerArray2[y];
@@ -454,14 +466,14 @@ function testOptimization() {
 			displayChart2();
 			y = y+1;
 			b = b+1;
-			if ((combinedWeight > subFrame.maxWeight || combinedEffect >= userInput.highCutOff) && varKey2 == 0){
+			console.log(varKey2);
+			if ((combinedWeight > subFrame.maxWeight || combinedEffect >= userInput.highCutOff || typeArray2[y] == varKey2 + 1) && varKey2 == 0){
 				varKey2 = varKey2 + 1;
 				b = 0;
 				combinedWeight = 0;
 				combinedEffect = 0;
-				console.log(y);
 				y = typeArray2.findIndex(incPart);
-				console.log(y); }
+			}
 			cycles = cycles + 1;
 		}
 		varKey2 = 0;
