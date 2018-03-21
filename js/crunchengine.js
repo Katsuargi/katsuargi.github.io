@@ -123,6 +123,7 @@ function submitValues1(){
 	part1.o = parseFloat(document.getElementById("o1").value);
 	part1.e = parseFloat(document.getElementById("e1").value);
 	part1.t = parseFloat(document.getElementById("t1").value);
+	part1.name=document.getElementById("n1").value;
 	part2.effect = parseFloat(document.getElementById("effect2").value);
 	part2.weight = parseInt(document.getElementById("weight2").value);
 	part2.uWeight = parseInt(document.getElementById("uWeight2").value);
@@ -133,6 +134,38 @@ function submitValues1(){
 	part2.o = parseFloat(document.getElementById("o2").value);
 	part2.e = parseFloat(document.getElementById("e2").value);
 	part2.t = parseFloat(document.getElementById("t2").value);
+	part2.name=document.getElementById("n2").value;
+	part3.effect = parseFloat(document.getElementById("effect3").value);
+	part3.weight = parseInt(document.getElementById("weight3").value);
+	part3.uWeight = parseInt(document.getElementById("uWeight3").value);
+	part3.sr = parseFloat(document.getElementById("sr3").value);
+	part3.power = parseFloat(document.getElementById("power3").value);
+	part3.sPower = parseFloat(document.getElementById("sPower3").value);
+	part3.uPower = parseFloat(document.getElementById("uPower3").value);
+	part3.o = parseFloat(document.getElementById("o3").value);
+	part3.e = parseFloat(document.getElementById("e3").value);
+	part3.t = parseFloat(document.getElementById("t3").value);
+	part3.name=document.getElementById("n3").value;
+	part4.effect = parseFloat(document.getElementById("effect4").value);
+	part4.weight = parseInt(document.getElementById("weight4").value);
+	part4.uWeight = parseInt(document.getElementById("uWeight4").value);
+	part4.sr = parseFloat(document.getElementById("sr4").value);
+	part4.power = parseFloat(document.getElementById("power4").value);
+	part4.sPower = parseFloat(document.getElementById("sPower4").value);
+	part4.uPower = parseFloat(document.getElementById("uPower4").value);
+	part4.o = parseFloat(document.getElementById("o4").value);
+	part4.e = parseFloat(document.getElementById("e4").value);
+	part4.t = parseFloat(document.getElementById("t4").value);
+	part4.name=document.getElementById("n4").value;
+	if (document.getElementById("phaser").checked == true){
+		part2.type = 1;
+	} else if (document.getElementById("torpedo").checked == true){
+		part2.type = 2;
+	} else if (document.getElementById("burst-launcher").checked == true){
+		part2.type = 3;
+	} else if (document.getElementById("other").checked == true) {
+		part2.type = 0;
+	}
 	if (document.getElementById("phaser2").checked == true){
 		part2.type = 1;
 	} else if (document.getElementById("torpedo2").checked == true){
@@ -141,6 +174,24 @@ function submitValues1(){
 		part2.type = 3;
 	} else if (document.getElementById("other2").checked == true) {
 		part2.type = 0;
+	}
+	if (document.getElementById("phaser3").checked == true){
+		part3.type = 1;
+	} else if (document.getElementById("torpedo3").checked == true){
+		part3.type = 2;
+	} else if (document.getElementById("burst-launcher3").checked == true){
+		part3.type = 3;
+	} else if (document.getElementById("other3").checked == true) {
+		part3.type = 0;
+	}
+	if (document.getElementById("phaser4").checked == true){
+		part4.type = 1;
+	} else if (document.getElementById("torpedo4").checked == true){
+		part4.type = 2;
+	} else if (document.getElementById("burst-launcher4").checked == true){
+		part4.type = 3;
+	} else if (document.getElementById("other4").checked == true) {
+		part4.type = 0;
 	}
 }
 
