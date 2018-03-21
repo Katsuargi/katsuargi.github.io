@@ -92,7 +92,7 @@ var partTotalWeight = 0;
 var partTotalWeight2 = 0;
 var partTotalWeight3 = 0;
 
-// Custom value input code.
+// Custom user value input code. Ideally would eventually be replaced with part import from a spreadsheet.
 
 function storeCutoff() {
     userInput.lowCutOff = (document.getElementById("low-cutOff").value);
@@ -144,7 +144,7 @@ function submitValues1(){
 	}
 }
 
-//Initial test project for crunching and generating all legal parts of a single type.
+//Initial test project for crunching and generating all legal (based on part weight to weight limits of subframe) parts of a single type.
 
 function simpleCrunch() {
 	x = 0;
@@ -343,7 +343,7 @@ function testOptimization() {
 	//Incriments through number of parts until hitting max weight or an set cap. Current cap is based on the point that diminishing returns hits "Not even crazy specilized
 	// builds would use this many single parts." Wrapping loop incriments to the next part of the given type after hitting the cap with the initial one.
 	while (y < phaserArray.length) {
-		while (partTotalWeight < subFrame.maxWeight && x <= 12) {
+		while (partTotalWeight < subFrame.maxWeight && x <= 11) {
 			x = x + 1;
 			a = a + 1;
 			if (phaserArray[y].type == 1) {
@@ -374,7 +374,7 @@ function testOptimization() {
 			oArray1[a] = oTotal;
 			eArray1[a] = eTotal;
 			tArray1[a] = tTotal;
-			nameArray1[a] = phaserArray[y].name;
+			nameArray1[a+1] = phaserArray[y].name;
 			typeArray1[a] = y;
 		}
 		y = y+1;
@@ -385,7 +385,7 @@ function testOptimization() {
 	a = 0;
 	partTotalWeight = 0;
 	while (z < torpedoArray.length) {
-		while (partTotalWeight2 < subFrame.maxWeight && x <= 12) {
+		while (partTotalWeight2 < subFrame.maxWeight && x <= 11) {
 			x = x + 1;
 			a = a + 1;
 			if (torpedoArray[z].type == 3) {
@@ -431,7 +431,7 @@ function testOptimization() {
 	console.log(typeArray2);
 	//Something of a crude hack here. When the array hits the next part type it resets incrimentation.
 	while (x < effectArray1.length) {
-		if (typeArray1[x] == 1 && varKey == 0) {a = 0; varKey = varKey + 1;}
+		if (typeArray1[x] == 1 && varKey == 0) {a = 1; varKey = varKey + 1;}
 		part1Effect = effectArray1[x];
 		part1Weight = weightArray1[x];
 		part1Power = powerArray1[x];
