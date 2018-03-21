@@ -153,6 +153,8 @@ function simpleCrunch() {
 	var tRow = document.createElement("tr");
 	var tCell=[];
 	var tCellText=[];
+
+	//Generates a table for laying out the calculated data.
 	for (var i = 0; i <= 9; i++) {
  		tCell[i] = document.createElement("td");
 	}
@@ -202,6 +204,7 @@ function simpleCrunch() {
 		
 		}
 
+		//Uses a loop to increment part by part and generate statlines based on game formulas until it hits the set weight cap for the given subframe.
 	while (partTotalWeight < subFrame.maxWeight) {
 		x = x + 1;
 		if (part1.type == 1) {
@@ -282,6 +285,8 @@ function testOptimization() {
 	var nameArray2 = [];
 	var y = 0;
 	var z = 0;
+
+	//standard chart generation.
 	for (var i = 0; i <= 11; i++) {
  		tCell[i] = document.createElement("td");
 	}
@@ -335,6 +340,8 @@ function testOptimization() {
 		
 	}
 
+	//Incriments through number of parts until hitting max weight or an set cap. Current cap is based on the point that diminishing returns hits "Not even crazy specilized
+	// builds would use this many single parts." Wrapping loop incriments to the next part of the given type after hitting the cap with the initial one.
 	while (y < phaserArray.length) {
 		while (partTotalWeight < subFrame.maxWeight && x <= 12) {
 			x = x + 1;
@@ -422,6 +429,7 @@ function testOptimization() {
 	var workingParts = [];
 	console.log(weightArray2);
 	console.log(typeArray2);
+	//Something of a crude hack here. When the array hits the next part type it resets incrimentation.
 	while (x < effectArray1.length) {
 		if (typeArray1[x] == 1 && varKey == 0) {a = 0; varKey = varKey + 1;}
 		part1Effect = effectArray1[x];
@@ -444,6 +452,7 @@ function testOptimization() {
 			return value == varKey2;
 		}
 		y = 1;
+		//combines parts up to subframe weight limits.
 		while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff && y < effectArray2.length) {
 			part2Effect = effectArray2[y];
 			part2Weight = weightArray2[y];
@@ -467,6 +476,7 @@ function testOptimization() {
 			y = y+1;
 			b = b+1;
 			console.log(varKey2);
+			//Hack to reset incrimentation when hitting the next part type in the array.
 			if ((combinedWeight > subFrame.maxWeight || combinedEffect >= userInput.highCutOff || typeArray2[y] == varKey2 + 1) && varKey2 == 0){
 				varKey2 = varKey2 + 1;
 				b = 0;
