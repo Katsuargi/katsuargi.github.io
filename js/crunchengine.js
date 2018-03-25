@@ -31,7 +31,7 @@ var part2 = {
 	o: .15,
 	e: .15,
 	t: .001,
-	type: 2,
+	type: 1,
 	name: "LPh",
 }
 
@@ -483,6 +483,7 @@ function testOptimization() {
 	//Something of a crude hack here. When the array hits the next part type it resets incrimentation.
 	while (x < effectArray1.length) {
 		if (typeArray1[x] == 1 && varKey == 0) {a = 1; varKey = varKey + 1;}
+		if (typeArray1[x] == 2 && varKey == 1) {a = 1; varKey = varKey + 2;}
 		part1Effect = effectArray1[x];
 		part1Weight = weightArray1[x];
 		part1Power = powerArray1[x];
@@ -523,7 +524,7 @@ function testOptimization() {
 			combinedO = part1O + part2O;
 			combinedE = part1E + part2E;
 			combinedT = part1T + part2T;
-			displayChart2();
+			if (isNaN(combinedEffect) == false) {displayChart2();}
 			y = y+1;
 			b = b+1;
 			console.log(varKey2);
