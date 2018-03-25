@@ -482,8 +482,7 @@ function testOptimization() {
 	console.log(typeArray2);
 	//Something of a crude hack here. When the array hits the next part type it resets incrimentation.
 	while (x < effectArray1.length) {
-		if (typeArray1[x] == 1 && varKey == 0) {a = 1; varKey = varKey + 1;}
-		if (typeArray1[x] == 2 && varKey == 1) {a = 1; varKey = varKey + 2;}
+		if (typeArray1[x] == varKey) {a = 1; varKey = varKey + 1;}
 		part1Effect = effectArray1[x];
 		part1Weight = weightArray1[x];
 		part1Power = powerArray1[x];
@@ -529,7 +528,7 @@ function testOptimization() {
 			b = b+1;
 			console.log(varKey2);
 			//Hack to reset incrimentation when hitting the next part type in the array.
-			if ((combinedWeight > subFrame.maxWeight || combinedEffect >= userInput.highCutOff || typeArray2[y] == varKey2 + 1) && varKey2 == 0){
+			if (combinedWeight > subFrame.maxWeight || combinedEffect >= userInput.highCutOff || typeArray2[y] == varKey2 + 1){
 				varKey2 = varKey2 + 1;
 				b = 0;
 				combinedWeight = 0;
