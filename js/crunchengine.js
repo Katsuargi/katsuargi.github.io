@@ -65,9 +65,40 @@ var part4 = {
 	name: "LTor",
 }
 
-var partArray = [part1, part2, part3, part4];
+var part5 = {
+	effect: .6,
+	weight: 12,
+	uWeight: 7,
+	sr: 0.05,
+	power: 2,
+	sPower: 0.15,
+	uPower: 0.75,
+	o: .2,
+	e: .2,
+	t: 0,
+	type: 0,
+	name: "LSens",
+}
+
+var part6 = {
+	effect: .8,
+	weight: 12,
+	uWeight: 9,
+	sr: 0.05,
+	power: 2,
+	sPower: 0.15,
+	uPower: 0.75,
+	o: .2,
+	e: .2,
+	t: 0,
+	type: 0,
+	name: "HSens",
+}
+
+var partArray = [part1, part2, part3, part4, part5, part6];
 var phaserArray = [];
 var torpedoArray = [];
+var otherArray = [];
 
 var frame = {
 	maxWeight: 2700,
@@ -304,6 +335,9 @@ function testOptimization() {
 		if (partArray[i].type === 3){
 			torpedoArray.push(partArray[i])
 		}
+		if (partArray[i].type === 0){
+			otherArray.push(partArray[i])
+		}
 		console.log(phaserArray);
 		console.log(torpedoArray);
 	}
@@ -330,12 +364,25 @@ function testOptimization() {
 	var oArray2 = [];
 	var eArray2 = [];
 	var tArray2 = [];
+	var effectArray3 = [];
+	var weightArray3 = [];
+	var powerArray3 = [];
+	var effArray3 = [];
+	var srArray3 = [];
+	var brArray3 = [];
+	var oArray3 = [];
+	var eArray3 = [];
+	var tArray3 = [];
 	var typeArray1 = [];
 	var typeArray2 = [];
+	var typeArray3 = [];
 	var nameArray1 = [];
 	var nameArray2 = [];
+	var nameArray3 = [];
+
 	var y = 0;
 	var z = 0;
+	var m = 0;
 
 	//standard chart generation.
 	for (var i = 0; i <= 11; i++) {
@@ -470,16 +517,52 @@ function testOptimization() {
 		partTotalWeight2 = 0;
 		x = 0;
 	}
+	a = 0;
+	while (m < otherArray.length) {
+		while (partTotalWeight3 < subFrame.maxWeight && x <= 11) {
+			x = x + 1;
+			a = a + 1;
+			if (torpedoArray[m].type == 3) {
+				partTotalEffect3 = torpedoArray[m].effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1.5 * subFrame.cMulti;
+				partTotalWeight3 = (torpedoArray[m].weight + (torpedoArray[m].uWeight * x)) * 1.5;
+			}
+			else if (torpedoArray[m].type == 0) {
+				partTotalEffect3 = torpedoArray[m].effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;
+				partTotalWeight3 = (torpedoArray[m].weight + (torpedoArray[m].uWeight * x));
+			} else {partTotalEffect3 = torpedoArray[m].effect * (1+3.5*Math.log10(0.7*x+0.3)) * 1 * subFrame.cMulti;}
+			partTotalPower3 = (torpedoArray[m].power + (torpedoArray[m].sPower * frame.size) + (torpedoArray[m].uPower * x));
+			partEff3 = (partTotalEffect / partTotalWeight);
+			partSrTotal3 = torpedoArray[m].sr * partTotalWeight *  (frame.srMod*subFrame.srMod);
+			partBrTotal3 = partTotalWeight / 10;
+			oTotal3 = torpedoArray[m].o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod);
+			eTotal3 = torpedoArray[m].e * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.eMod * subFrame.eMod);
+			tTotal3 = torpedoArray[m].t * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.tMod * subFrame.tMod);
+			effectArray3[a] = partTotalEffect3;
+			weightArray3[a] = partTotalWeight3;
+			powerArray3[a] = partTotalPower3;
+			effArray3[a] = partEff3;
+			srArray3[a] = partSrTotal3;
+			brArray3[a] = partBrTotal3;
+			oArray3[a] = oTotal3;
+			eArray3[a] = eTotal3;
+			tArray3[a] = tTotal3;
+			nameArray3[a] = otherArray[m].name;
+			typeArray3[a] = m;
+		}
+		m = m+1;
+		partTotalWeight2 = 0;
+		x = 0;
+	}
 
 	partTotalWeight2 = 0;
 	x = 0;
 	a = 0;
 	b = 0;
+	z = 0;
 	var varKey = 0;
 	var varKey2 = 0;
+	var varKey3 = 0;
 	var workingParts = [];
-	console.log(weightArray2);
-	console.log(typeArray2);
 	//Something of a crude hack here. When the array hits the next part type it resets incrimentation.
 	while (x < effectArray1.length) {
 		if (typeArray1[x] == varKey) {a = 1; varKey = varKey + 1;}
@@ -502,6 +585,9 @@ function testOptimization() {
 		function incPart(value){
 			return value == varKey2;
 		}
+		function incPart2(value){
+			return value == varKey3;
+		}
 		y = 1;
 		//combines parts up to subframe weight limits.
 		while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff && y < effectArray2.length) {
@@ -523,22 +609,51 @@ function testOptimization() {
 			combinedO = part1O + part2O;
 			combinedE = part1E + part2E;
 			combinedT = part1T + part2T;
-			if (isNaN(combinedEffect) == false) {displayChart2();}
+			//if (isNaN(combinedEffect) == false) {displayChart2();}
 			y = y+1;
-			b = b+1;
-			console.log(varKey2);
 			//Hack to reset incrimentation when hitting the next part type in the array.
 			if (combinedWeight > subFrame.maxWeight || combinedEffect >= userInput.highCutOff || typeArray2[y] == varKey2 + 1){
 				varKey2 = varKey2 + 1;
-				b = 0;
 				combinedWeight = 0;
 				combinedEffect = 0;
 				y = typeArray2.findIndex(incPart);
 			}
+			while (combinedWeight < subFrame.maxWeight && combinedEffect <= userInput.highCutOff && z < effectArray3.length){
+				z = z+1;
+				console.log(z);
+				console.log(weightArray3);
+				part3Effect = effectArray3[z];
+				part3Weight = weightArray3[z];
+				part3Power = powerArray3[z];
+				part3Eff = effArray3[z];
+				part3Sr = srArray3[z];
+				part3Br = brArray3[z];
+				part3O = oArray3[z];
+				part3E = eArray3[z];
+				part3T = tArray3[z];
+				combinedEffect = part1Effect + part2Effect + part3Effect;
+				combinedWeight = part1Weight + part2Weight + part3Weight;
+				combinedPower = part1Power + part2Power + part3Power;
+				combinedEff = combinedEffect / combinedWeight;
+				combinedSr = part1Sr + part2Sr + part3Sr;
+				combinedBr = combinedWeight / 10;
+				combinedO = part1O + part2O + part3O;
+				combinedE = part1E + part2E + part3E;
+				combinedT = part1T + part2T + part3T;
+				displayChart2();
+				if (combinedWeight > subFrame.maxWeight || combinedEffect >= userInput.highCutOff || typeArray3[z] == varKey3 + 1){
+					varKey3 = varKey3 + 1;
+					combinedWeight = 0;
+					combinedEffect = 0;
+					z = typeArray3.findIndex(incPart2);
+				}
+			}
 			cycles = cycles + 1;
+			z = 0;
 		}
 		varKey2 = 0;
-		b = 0;
+		combinedWeight = 0;
+		combinedEffect = 0;
 	}
 	console.log(cycles);
 }
