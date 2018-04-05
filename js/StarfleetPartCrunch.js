@@ -95,12 +95,17 @@ var part6 = {
 	name: "HSens",
 }
 
+var currentPhaser;
+var currentTorpedo;
+var numberOfPhasers;
+var numberOfTorpedos;
+
 var workingPhaser = {
-	effect: [currentPhaser].effect * (1+3.5*Math.log10(0.7*numberOfParts+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti,
+	effect: [currentPhaser].effect * (1+3.5*Math.log10(0.7*numberOfPhasers+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti,
 	weight: [currentPhaser].weight,
-	totalWeight: [currentPhaser].weight + [currentPhaser].uWeight*numberOfParts,
+	phaserTotalWeight: [currentPhaser].weight + [currentPhaser].uWeight*numberOfPhasers,
 	sr: [currentPhaser].sr * workingPhaser.totalWeight * (frame.srMod * subFrame.srMod),
-	power: ([currentPhaser].power + ([currentPhaser].sPower * frame.size) + ([currentPhaser].uPower * numberOfParts)),
+	power: ([currentPhaser].power + ([currentPhaser].sPower * frame.size) + ([currentPhaser].uPower * numberOfPhasers)),
 	o: [currentPhaser].o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
 	e: [currentPhaser].e * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
 	t: [currentPhaser].o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
@@ -136,6 +141,44 @@ var partTotalWeight = 0;
 var partTotalWeight2 = 0;
 var partTotalWeight3 = 0;
 
-function  () {
+function sort() {
+	for (i=0; i < partArray.length; i++){
+		if (partArray[i].type === 1 || partArray[i].type === 2){
+			phaserArray.push(partArray[i])
+		}
+		if (partArray[i].type === 3){
+			torpedoArray.push(partArray[i])
+		}
+		if (partArray[i].type === 0){
+			otherArray.push(partArray[i])
+		}
+		console.log(phaserArray);
+		console.log(torpedoArray);
+	}
+}
 
+function partMixer() {
+	var x = 0;
+	var y = 0;
+	while (totalWeight < subFrame.maxWeight) {
+		currentPhaser = phaserArray.[x];
+		currentTorpedo = torpedoArray.[y];
+		numberOfPhasers = 1;
+		numberOfTorpedos = 0;
+
+		combinedEffect = workingPhaser.effect + workingTorpedo.effect;
+		combinedWeight = workingPhaser.phaserTotalWeight + workingTorpedo.torpedoTotalWeight;
+		combinedPower = workingPhaser.power + workingTorpedo.power;
+		combinedEff = combinedEffect / combinedWeight;
+		combinedSr = workingPhaser.sr + workingTorpedo.sr;
+		combinedBr = combinedWeight / 10;
+		combinedO = workingPhaser.o + workingTorpedo.o;
+		combinedE = workingPhaser.e + workingTorpedo.e;
+		combinedT = workingPhaser.t + workingTorpedo.t;
+		print();
+		numberOfTorpedos = numberOfTorpedos + 1;
+		if (numberOfTorpedos == 13) {numberOfTorpedos = 0; y = y + 1;}
+		if (currentTorpedo == NaN) {numberOfTorpedos = 0; y = 0; x = x+1;}
+		if (currentPhaser == NaN) {break;}
+	}
 }
