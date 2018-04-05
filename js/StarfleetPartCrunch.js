@@ -95,28 +95,35 @@ var part6 = {
 	name: "HSens",
 }
 
-var currentPhaser;
-var currentTorpedo;
-var numberOfPhasers;
-var numberOfTorpedos;
-
-var workingPhaser = {
-	effect: [currentPhaser].effect * (1+3.5*Math.log10(0.7*numberOfPhasers+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti,
-	weight: [currentPhaser].weight,
-	phaserTotalWeight: [currentPhaser].weight + [currentPhaser].uWeight*numberOfPhasers,
-	sr: [currentPhaser].sr * workingPhaser.totalWeight * (frame.srMod * subFrame.srMod),
-	power: ([currentPhaser].power + ([currentPhaser].sPower * frame.size) + ([currentPhaser].uPower * numberOfPhasers)),
-	o: [currentPhaser].o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
-	e: [currentPhaser].e * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
-	t: [currentPhaser].o * (1+Math.log10(x)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
+var currentPhaser = {
+	effect: .975,
+	weight: 8,
+	uWeight: 14,
+	sr: 0.08,
+	power: 5,
+	sPower: 2.5,
+	uPower: 1.75,
+	o: .32,
+	e: .32,
+	t: .01,
 	type: 1,
-	name: [currentPhaser].name,
+	name: "HPh",
 }
 
-var partArray = [part1, part2, part3, part4, part5, part6];
-var phaserArray = [];
-var torpedoArray = [];
-var otherArray = [];
+var currentTorpedo = {
+	effect: .975,
+	weight: 8,
+	uWeight: 14,
+	sr: 0.08,
+	power: 5,
+	sPower: 2.5,
+	uPower: 1.75,
+	o: .32,
+	e: .32,
+	t: .01,
+	type: 1,
+	name: "HPh",
+}
 
 var frame = {
 	maxWeight: 2700,
@@ -136,6 +143,41 @@ var subFrame = {
 	tMod: .88,
 	srMod: 1,
 }
+
+var currentTorpedo;
+var numberOfPhasers = 0;
+var numberOfTorpedos = 0;
+
+var workingPhaser = {
+	effect: currentPhaser.effect * (1+3.5*Math.log10(0.7*numberOfPhasers+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti,
+	weight: currentPhaser.weight,
+	phaserTotalWeight: currentPhaser.weight + currentPhaser.uWeight*numberOfPhasers,
+	sr: currentPhaser.sr * (currentPhaser.weight + currentPhaser.uWeight*numberOfPhasers) * (frame.srMod * subFrame.srMod),
+	power: (currentPhaser.power + (currentPhaser.sPower * frame.size) + (currentPhaser.uPower * numberOfPhasers)),
+	o: currentPhaser.o * (1+Math.log10(numberOfPhasers)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
+	e: currentPhaser.e * (1+Math.log10(numberOfPhasers)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
+	t: currentPhaser.o * (1+Math.log10(numberOfPhasers)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
+	type: 1,
+	name: currentPhaser.name,
+}
+
+var workingTorpedo = {
+	effect: currentTorpedo.effect * (1+3.5*Math.log10(0.7*numberOfTorpedos+0.3)) * ((100-frame.size) / 100) * subFrame.cMulti,
+	weight: currentTorpedo.weight,
+	torpedoTotalWeight: currentTorpedo.weight + currentTorpedo.uWeight*numberOfTorpedos,
+	sr: currentTorpedo.sr * (currentTorpedo.weight + currentTorpedo.uWeight*numberOfTorpedos) * (frame.srMod * subFrame.srMod),
+	power: (currentTorpedo.power + (currentTorpedo.sPower * frame.size) + (currentTorpedo.uPower * numberOfTorpedos)),
+	o: currentTorpedo.o * (1+Math.log10(numberOfTorpedos)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
+	e: currentTorpedo.e * (1+Math.log10(numberOfTorpedos)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
+	t: currentTorpedo.o * (1+Math.log10(numberOfTorpedos)*2) * (Math.pow(frame.size, 0.7) / 2) * (frame.oMod * subFrame.oMod),
+	type: 1,
+	name: currentTorpedo.name,
+}
+
+var partArray = [part1, part2, part3, part4, part5, part6];
+var phaserArray = [];
+var torpedoArray = [];
+var otherArray = [];
 
 var partTotalWeight = 0;
 var partTotalWeight2 = 0;
@@ -160,12 +202,21 @@ function sort() {
 function partMixer() {
 	var x = 0;
 	var y = 0;
-	while (totalWeight < subFrame.maxWeight) {
-		currentPhaser = phaserArray.[x];
-		currentTorpedo = torpedoArray.[y];
+	var combinedEffect;
+	var combinedWeight = 0;
+	var combinedPower;
+	var combinedEff;
+	var combinedSr;
+	var combinedBr;
+	var combinedO;
+	var combinedE;
+	var combinedT;
+	var z;
+	while (combinedWeight < subFrame.maxWeight) {
+		currentPhaser = phaserArray[x];
+		currentTorpedo = torpedoArray[y];
 		numberOfPhasers = 1;
 		numberOfTorpedos = 0;
-
 		combinedEffect = workingPhaser.effect + workingTorpedo.effect;
 		combinedWeight = workingPhaser.phaserTotalWeight + workingTorpedo.torpedoTotalWeight;
 		combinedPower = workingPhaser.power + workingTorpedo.power;
@@ -175,10 +226,10 @@ function partMixer() {
 		combinedO = workingPhaser.o + workingTorpedo.o;
 		combinedE = workingPhaser.e + workingTorpedo.e;
 		combinedT = workingPhaser.t + workingTorpedo.t;
-		print();
 		numberOfTorpedos = numberOfTorpedos + 1;
 		if (numberOfTorpedos == 13) {numberOfTorpedos = 0; y = y + 1;}
 		if (currentTorpedo == NaN) {numberOfTorpedos = 0; y = 0; x = x+1;}
 		if (currentPhaser == NaN) {break;}
+		console.log(combinedWeight);
 	}
 }
